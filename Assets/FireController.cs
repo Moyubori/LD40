@@ -7,7 +7,11 @@ public class FireController : MonoBehaviour {
 	[SerializeField]
 	private float rotationOffset = 0f;
 
-	void Update () {
+	private void Update () {
+		RotateToMousePos ();
+	}
+
+	private void RotateToMousePos() {
 		Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		inputPos.Set (inputPos.x, inputPos.y, 0);
 		Debug.DrawLine (transform.position, inputPos);
@@ -16,4 +20,5 @@ public class FireController : MonoBehaviour {
 		float angle = Mathf.Atan2(inputPosDiff.y, inputPosDiff.x) * Mathf.Rad2Deg - 90;
 		transform.rotation = Quaternion.Euler (0, 0, angle + rotationOffset);
 	}
+
 }

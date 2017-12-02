@@ -8,9 +8,8 @@ public class MovementController : MonoBehaviour {
     private float movementSpeed = 10f;
 
     private void Update () {
-        float horizontal = Input.GetAxis("xMovement");
-        float vertical = Input.GetAxis("yMovement");
-
+		float horizontal = Mathf.Clamp(Input.GetAxis("xMovementController") + Input.GetAxis("xMovementKeyboard"), -1, 1);
+		float vertical = Mathf.Clamp(Input.GetAxis("yMovementController") + Input.GetAxis("yMovementKeyboard"), -1, 1);
         GetComponent<Rigidbody2D>().velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
     }
 
