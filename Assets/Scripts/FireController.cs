@@ -35,15 +35,18 @@ public class FireController : MonoBehaviour {
 			float angle = prevAngle;
 			if (mouseMoved || mouseClicked) {
 				angle = AngleToMousePos ();
-				if (mouseClicked) {
-					Fire ();
-				}
 			} else if ((horizontalC != 0) || (verticalC != 0)) {
 				angle = AngleToControllerInput (horizontalC, verticalC);
-				Fire ();
 			}
 			prevAngle = angle;
 			Rotate (angle);
+
+			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
+			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
+			Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
+			if ((horizontalC / sinY) >= 1f || (verticalC / cosY) >= 1f || mouseClicked) {
+				Fire ();
+			}
 		}
 	}
 

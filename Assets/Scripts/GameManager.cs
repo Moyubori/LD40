@@ -22,5 +22,9 @@ public class GameManager : MonoBehaviour {
 		}
 		DontDestroyOnLoad (gameObject);
 	}
+
+	public static ObjectPool GetObjectPool(string poolName) {
+		return instance.transform.Find ("poolName").GetComponent<ObjectPool> ();
+	}
 		
 }
