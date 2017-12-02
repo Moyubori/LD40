@@ -17,9 +17,13 @@ public class EnemyProjectile : PooledObject
     public float damage;
 
     private void Start()
-    {
+	{
         SetupPhysics();
     }
+
+	public override void Setup() {
+		
+	}
 
     private void OnEnable()
     {

@@ -14,18 +14,15 @@ public class PlayerProjectile : PooledObject {
 	public float speed;
 	public float lifetime;
 	public float damage;
-<<<<<<< HEAD
     public float timer;
+
 	private void Start () {
 		SetupPhysics ();
 	}
-=======
 
 	private bool physicsSet = false;
->>>>>>> player_controls
 
 	private void OnEnable() {
-		//StartCoroutine (LaunchProjectile ());
 	    timer = baseLifetime;
 	}
 
@@ -39,24 +36,16 @@ public class PlayerProjectile : PooledObject {
 		}
 	}
 
-<<<<<<< HEAD
-    void Update()
-    {
-        if (timer>0){
-            GetComponent<Rigidbody>().velocity = transform.forward * speed;
-            timer -= Time.deltaTime;
-        }
+    void Update() {
+		if (timer > 0) {
+			GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+			timer -= Time.deltaTime;
+		} else {
+			Disable ();
+		}
     }
+
 	private void SetupPhysics() {
-		Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
-		Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());
-		List<GameObject> otherProjectiles = parentPool.GetAllInstances ();
-		otherProjectiles.ForEach (projectile => {
-			Collider collider = projectile.GetComponent<Collider> ();
-			Physics.IgnoreCollision(collider, GetComponent<Collider>());
-		});
-=======
-	public void SetupPhysics() {
 		if (!physicsSet) {
 			Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
 			Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());
@@ -67,7 +56,6 @@ public class PlayerProjectile : PooledObject {
 			});
 			physicsSet = true;
 		}
->>>>>>> player_controls
 	}
 
 	private IEnumerator LaunchProjectile() {
