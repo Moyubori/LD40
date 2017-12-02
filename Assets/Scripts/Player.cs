@@ -40,8 +40,8 @@ public class Player : MonoBehaviour {
 	}
 		
 	private void OnTriggerEnter(Collider collider) {
-		if (collider.tag == "AmmoCollectible") {
-			ammo += collider.GetComponent<AmmoCollectible> ().Collect();
+		if (collider.tag == "Collectible") {
+			collider.GetComponent<Collectible> ().Collect();
 		}
 	}
 

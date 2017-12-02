@@ -6,6 +6,14 @@ public class GameManager : MonoBehaviour {
 
 	private static GameManager instance;
 
+	private Player player;
+
+	public static Player Player {
+		get {
+			return instance.player;
+		}
+	}
+
 	private bool allowPlayerInput = true;
 
 	public static bool PlayerInputAllowed {
@@ -23,8 +31,12 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
+	private void Start() {
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+	}
+
 	public static ObjectPool GetObjectPool(string poolName) {
-		return instance.transform.Find ("poolName").GetComponent<ObjectPool> ();
+		return instance.transform.Find (poolName).GetComponent<ObjectPool> ();
 	}
 
 	public static void GameOver () {

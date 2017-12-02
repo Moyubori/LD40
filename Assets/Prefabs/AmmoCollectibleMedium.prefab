@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114067437452281240}
   m_Layer: 0
   m_Name: AmmoCollectibleMedium
-  m_TagString: AmmoCollectible
+  m_TagString: Collectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d97f0632e0533a54a9d41c410b522cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 150
-  ammo: 100
+  animateMesh: 1
   mesh: {fileID: 4475406938009408}
+  ammo: 100
+  meshRotationSpeed: 150
 --- !u!135 &135857136107420814
 SphereCollider:
   m_ObjectHideFlags: 1
