@@ -6,13 +6,14 @@ public class PlayerProjectile : PooledObject {
 
 	[SerializeField]
 	private float baseSpeed = 10f;
-
-	public float speedModifier = 1f;
-
 	[SerializeField]
 	private float baseLifetime = 3f;
+	[SerializeField]
+	private float baseDamage = 10f;
 
-	public float lifetimeModifier = 1f;
+	public float speed;
+	public float lifetime;
+	public float damage;
 
 	private void Start () {
 		SetupPhysics ();
@@ -39,13 +40,16 @@ public class PlayerProjectile : PooledObject {
 	}
 
 	private IEnumerator LaunchProjectile() {
-		GetComponent<Rigidbody> ().velocity = transform.forward * baseSpeed * speedModifier;
-		yield return new WaitForSeconds (baseLifetime * lifetimeModifier);
+		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+		yield return new WaitForSeconds (lifetime);
 		Disable ();
 	}
 
 	public void Disable() {
 		GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		speed = baseSpeed;
+		lifetime = baseLifetime;
+		damage = baseDamage;
 		ReturnToPool ();
 	}
 

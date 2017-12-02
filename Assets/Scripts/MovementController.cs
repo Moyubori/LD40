@@ -6,12 +6,17 @@ public class MovementController : MonoBehaviour {
 
     [SerializeField]
 	private float baseMovementSpeed = 10f;
-
 	public float movementSpeedModifier = 1f;
 
     private void Update () {
 		HandleInput ();
     }
+
+	private void OnTriggerEnter(Collider collider) {
+		if (collider.tag == "AmmoCollectible") {
+			collider.GetComponent<AmmoCollectible> ();
+		}
+	}
 
 	private void HandleInput() {
 		if (GameManager.PlayerInputAllowed) {
