@@ -15,11 +15,11 @@ public class RoomGenerator : MonoBehaviour
     private int _dungeonSize;
     private int _posX, _posY;
     [SerializeField]
-    private GameObject _testRoom,_crossRoom,_straightRoom,_turnRoom,_endRoom,_tRoom;
+    private GameObject _testRoom,_crossRoom,_straightRoom,_turnRoom,_endRoom,_tRoom,_mapGO;
 
     public List<NavMeshSurface> surfaces;
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 	    _map = new bool[15, 15];
 	    for (int i = 0; i < _map.GetLength(0); i++)
@@ -36,7 +36,7 @@ public class RoomGenerator : MonoBehaviour
         //surfaces = new List<NavMeshSurface>();
         GenerateMap();
 	    surfaces[0].BuildNavMesh();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -91,7 +91,7 @@ public class RoomGenerator : MonoBehaviour
             }
             tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);
             var room = Instantiate(tileToSpawn, new Vector3(16*r.X, 0, 16*r.Y), tileToSpawn.transform.rotation);
-            
+            room.transform.SetParent(_mapGO.transform);
             
         }
     }
