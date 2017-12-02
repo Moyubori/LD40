@@ -44,7 +44,7 @@ public class FireController : MonoBehaviour {
 			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
 			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
 			Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
-			if ((horizontalC / sinY) >= 1f || (verticalC / cosY) >= 1f || mouseClicked) {
+			if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked) {
 				Fire ();
 			}
 		}
