@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoCollectible : Collectible {
+public class HealthCollectible : Collectible {
 
 	[SerializeField]
-	private int ammo = 100;
+	private float health = 20f;
 
 	public float meshRotationSpeed = 150f;
 
@@ -19,7 +19,7 @@ public class AmmoCollectible : Collectible {
 	}
 
 	public override void Collect() {
-		GameManager.Player.IncreaseAmmo (ammo);
+		GameManager.Player.IncreaseHealth (health);
 		gameObject.SetActive (false);
 	}
 

@@ -7,6 +7,7 @@ TagManager:
   - AmmoCollectible
   - Enemy
   - EnemyProjectile
+  - Collectible
   layers:
   - Default
   - TransparentFX
