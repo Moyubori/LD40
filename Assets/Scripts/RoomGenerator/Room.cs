@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.RoomGenerator;
 using UnityEngine;
 
 public class Room 
@@ -16,12 +17,51 @@ public class Room
         _neighboursCount = 0;
     }
 
+    public RoomType Type { get; set; }
+
+    public int Rotation { get; set; }
+
     public int NeighbourCount
     {
         get { return _neighboursCount; }
         //set { _neighboursCount = value; }
     }
 
+    public bool[] OpenSides
+    {
+        get { return _openSides; }
+        set
+        {
+            _openSides = value;
+            foreach (var s in _openSides)
+            {
+                if (s) _neighboursCount++;
+            }
+            switch (_neighboursCount)
+            {
+                case 1:
+                    Type = RoomType.END;
+                    break;
+                case 2:
+                    for (int i = 1; i < 4; i++)
+                    {
+                        if (_openSides[i] == _openSides[i - 1])
+                        {
+                            Type = RoomType.TURN;
+                            break;
+                        }
+                    }
+                    Type = RoomType.STRAIGHT;
+                    break;
+                case 3: 
+                    Type = RoomType.T;
+                    break;
+                case 4:
+                    Type = RoomType.CROSS;
+                    break;
+            }
+        }
+    }
     public int X
     {
         get { return _posX; }

@@ -11,7 +11,7 @@ public class RoomGenerator : MonoBehaviour
     private int _dungeonSize;
     private int _posX, _posY;
     [SerializeField]
-    private GameObject _testRoom;
+    private GameObject _testRoom,_crossRoom,_straightRoom,_turnRoom,_endRoom,_tRoom;
 	// Use this for initialization
 	void Start ()
 	{
