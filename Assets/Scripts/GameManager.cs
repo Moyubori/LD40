@@ -26,5 +26,10 @@ public class GameManager : MonoBehaviour {
 	public static ObjectPool GetObjectPool(string poolName) {
 		return instance.transform.Find ("poolName").GetComponent<ObjectPool> ();
 	}
+
+	public static void GameOver () {
+		Debug.Log ("Game Over!");
+		instance.allowPlayerInput = false;
+	}
 		
 }

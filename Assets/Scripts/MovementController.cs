@@ -7,6 +7,11 @@ public class MovementController : MonoBehaviour {
     [SerializeField]
 	private float baseMovementSpeed = 10f;
 	public float movementSpeedModifier = 1f;
+	public float MovementSpeed {
+		get {
+			return baseMovementSpeed * movementSpeedModifier;
+		}
+	}
 
     private void Update () {
 		HandleInput ();

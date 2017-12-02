@@ -9,9 +9,27 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private FireController fireController;
 
-	public int ammo = 0;
-	public float health = 100f;
+	[SerializeField]
+	private int ammo = 0;
+	public int Ammo {
+		get { 
+			return ammo;
+		}
+	}
 
+	[SerializeField]
+	private float baseHealth = 100f;
+	[SerializeField]
+	private float health = 100f;
+	public float Health {
+		get { 
+			return health;
+		}
+		set {
+			health = Mathf.Clamp (value, 0f, baseHealth);
+		}
+	}
+		
 	private void Start () {
 		if (movementController == null) {
 			movementController = GetComponent<MovementController> ();
@@ -41,6 +59,10 @@ public class Player : MonoBehaviour {
 		movementController.movementSpeedModifier /= modifier;
 	}
 
+	public float GetCurrentMovementSpeed() {
+		return movementController.MovementSpeed;
+	}
+
 	public void SetFireCooldown(float cooldown) { // permanently modifies fire cooldown
 		fireController.fireCooldown = cooldown;
 	}
@@ -60,6 +82,10 @@ public class Player : MonoBehaviour {
 		fireController.RevertFireCooldownToBaseValue ();
 	}
 
+	public float GetCurrentFireCooldown() {
+		return fireController.fireCooldown;
+	}
+
 	public void SetProjectileDamageModifier(float modifier) { // permanently modifies projectile damage
 		fireController.playerProjectileDamageMofidier *= modifier;
 	}
@@ -74,8 +100,12 @@ public class Player : MonoBehaviour {
 		fireController.playerProjectileDamageMofidier /= modifier;
 	}
 
-	public void SetProjectileLifetime(float cooldown) { // permanently modifies projectile lifetime
-		fireController.fireCooldown = cooldown;
+	public float GetCurrentProjectileDamage() {
+		return fireController.ProjectileDamage;
+	}
+
+	public void SetProjectileLifetime(float lifetime) { // permanently modifies projectile lifetime
+		fireController.playerProjectileLifetime = lifetime;
 	}
 
 	public void SetProjectileLifetime(float lifetime, float time) { // modifies projectile lifetime for a given time
@@ -89,5 +119,34 @@ public class Player : MonoBehaviour {
 		fireController.playerProjectileLifetime = prevLifetime;
 	}
 
+	public float GetCurrentProjectileLifetime() {
+		return fireController.playerProjectileLifetime;
+	}
+
+	public void DecreaseHealth(float amount) {
+		health = Mathf.Clamp (health - amount, 0f, baseHealth);
+		if (health == 0) {
+			GameManager.GameOver ();
+		}
+	}
+		
+	public void IncreaseHealth(float amount) {
+		health = Mathf.Clamp (health + amount, 0f, baseHealth);
+	}
+
+	public void DecreaseAmmo() {
+		DecreaseAmmo (1);
+	}
+
+	public void DecreaseAmmo(int amount) {
+		ammo -= amount;
+		if (ammo < 0) {
+			ammo = 0;
+		}
+	}
+
+	public void IncreaseAmmo(int amount) {
+		ammo += amount;
+	}
 
 }
