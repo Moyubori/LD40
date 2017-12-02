@@ -19,6 +19,7 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
 	    Damage = 5;
 	    Health = 100;
         _player = GameObject.Find("Player");
+	   _projectilePool =  GameObject.FindObjectsOfType<ObjectPool>()[0];
 	}
 	
 	// Update is called once per frame

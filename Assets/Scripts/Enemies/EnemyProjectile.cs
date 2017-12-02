@@ -18,13 +18,14 @@ public class EnemyProjectile : PooledObject
 
     private void Start()
     {
-        SetupPhysics();
+       
     }
 
     private void OnEnable()
     {
         StartCoroutine(LaunchProjectile());
     }
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -34,6 +35,7 @@ public class EnemyProjectile : PooledObject
         }
     }
 
+    
     private void SetupPhysics()
     {
         var enemyCollider = GameObject.FindGameObjectsWithTag("Enemy");
@@ -64,4 +66,8 @@ public class EnemyProjectile : PooledObject
         ReturnToPool();
     }
 
+    public override void Setup()
+    {
+        SetupPhysics();
+    }
 }

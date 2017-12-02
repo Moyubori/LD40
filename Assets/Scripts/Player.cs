@@ -119,7 +119,7 @@ public class Player : MonoBehaviour {
 		fireController.playerProjectileLifetime = prevLifetime;
 	}
 
-<<<<<<< HEAD:Assets/Player.cs
+//<<<<<<< HEAD:Assets/Player.cs
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Enemy" )
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour {
         Debug.Log(health);
     }
 
-=======
+//=======
 	public float GetCurrentProjectileLifetime() {
 		return fireController.playerProjectileLifetime;
 	}
@@ -163,6 +163,6 @@ public class Player : MonoBehaviour {
 	public void IncreaseAmmo(int amount) {
 		ammo += amount;
 	}
->>>>>>> player_controls:Assets/Scripts/Player.cs
+//>>>>>>> player_controls:Assets/Scripts/Player.cs
 
 }

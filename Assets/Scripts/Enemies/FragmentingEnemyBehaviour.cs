@@ -22,7 +22,7 @@ public class FragmentingEnemyBehaviour : EnemyBehaviour {
 	    {
 	        for (int i = 0; i < 2; i++)
 	        {
-	            var obj = Instantiate(this.gameObject);
+	            var obj = Instantiate(this.gameObject,transform.position,transform.rotation);
 	            obj.transform.localScale *= 0.5f;
 	            obj.GetComponent<FragmentingEnemyBehaviour>().Health = Health;
 	            obj.GetComponent<FragmentingEnemyBehaviour>().FullHealth = Health;

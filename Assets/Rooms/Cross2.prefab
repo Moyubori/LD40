@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 4280518579899036}
   - component: {fileID: 114552494741513290}
   m_Layer: 0
-  m_Name: Cross (1)
+  m_Name: Cross2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1908,6 +1908,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particles: {fileID: 1946087098429160, guid: 5aab6d50696e6e8449928011a39a8380, type: 2}
   _damage: 0
+  _ammoBoxes:
+  - {fileID: 1556696899798472, guid: 80558848eb397ab41b0b623b3d8449be, type: 2}
 --- !u!114 &114454569305199204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1921,6 +1923,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particles: {fileID: 1946087098429160, guid: 5aab6d50696e6e8449928011a39a8380, type: 2}
   _damage: 0
+  _ammoBoxes:
+  - {fileID: 1585898885762952, guid: 2e39aab9aa63d5243a655ad4e017e180, type: 2}
   _player: {fileID: 0}
 --- !u!114 &114552494741513290
 MonoBehaviour:
@@ -1957,6 +1961,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particles: {fileID: 1946087098429160, guid: 5aab6d50696e6e8449928011a39a8380, type: 2}
   _damage: 0
+  _ammoBoxes:
+  - {fileID: 1188175320350774, guid: 0c9c81e61eca81545b9463d929fbe84e, type: 2}
   _projectilePool: {fileID: 0}
   _range: 5
 --- !u!114 &114982506432363938

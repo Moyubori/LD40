@@ -108,6 +108,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particles: {fileID: 1946087098429160, guid: 5aab6d50696e6e8449928011a39a8380, type: 2}
   _damage: 0
+  _ammoBoxes:
+  - {fileID: 1556696899798472, guid: 80558848eb397ab41b0b623b3d8449be, type: 2}
+  - {fileID: 1105299771952570, guid: 65b54f214c237664eb90c635c126beb5, type: 2}
+  - {fileID: 1188175320350774, guid: 0c9c81e61eca81545b9463d929fbe84e, type: 2}
+  - {fileID: 1585898885762952, guid: 2e39aab9aa63d5243a655ad4e017e180, type: 2}
 --- !u!195 &195864212506008390
 NavMeshAgent:
   m_ObjectHideFlags: 1

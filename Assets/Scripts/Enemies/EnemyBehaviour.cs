@@ -7,6 +7,8 @@ public class EnemyBehaviour : MonoBehaviour {
     private GameObject _particles;
 
     [SerializeField] private float _damage;
+
+    [SerializeField] private List<GameObject> _ammoBoxes;
     // Use this for initialization
     void Start () {
 		
@@ -36,7 +38,16 @@ public class EnemyBehaviour : MonoBehaviour {
         if (Health <= 0)
         {
             Instantiate(_particles, transform.position, transform.rotation);
+            DropAmmo();
             Destroy(this.gameObject);
+        }
+    }
+
+    public void DropAmmo()
+    {
+        if (Random.Range(0, 100) > 50)
+        {
+            Instantiate(_ammoBoxes[Random.Range(0, _ammoBoxes.Count)], transform.position, transform.rotation);
         }
     }
 }
