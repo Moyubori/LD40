@@ -20,6 +20,7 @@ public class ObjectPool : MonoBehaviour {
 		newInstance.GetComponent<PooledObject> ().parentPool = this;
 		newInstance.transform.parent = transform;
 		newInstance.SetActive (false);
+		newInstance.GetComponent<PooledObject> ().Setup ();
 		pooledObjects.Add (newInstance);
 		return newInstance;
 	}

@@ -15,8 +15,9 @@ public class RoomGenerator : MonoBehaviour
     private int _dungeonSize;
     private int _posX, _posY;
     [SerializeField]
-    private GameObject _testRoom,_crossRoom,_straightRoom,_turnRoom,_endRoom,_tRoom,_mapGO;
-
+    private GameObject  _mapGO;
+    [SerializeField]
+    private List<GameObject> _testRoom, _crossRoom, _straightRoom, _turnRoom, _endRoom, _tRoom;
     public List<NavMeshSurface> surfaces;
 	// Use this for initialization
 	void Awake ()
@@ -31,9 +32,8 @@ public class RoomGenerator : MonoBehaviour
 	    }
 	    _map[7, 7] = true; //settining middle
 	    _posX = _posY = 7;
-        _rooms = new List<Room>();
-        _rooms.Add(new Room(7,7));
-        //surfaces = new List<NavMeshSurface>();
+	    _rooms = new List<Room> {new Room(7, 7)};
+	    //surfaces = new List<NavMeshSurface>();
         GenerateMap();
 	    surfaces[0].BuildNavMesh();
     }
@@ -78,15 +78,15 @@ public class RoomGenerator : MonoBehaviour
             GameObject tileToSpawn=null;
             switch (r.Type)
             {
-                case RoomType.T: tileToSpawn = _tRoom;
+                case RoomType.T: tileToSpawn = _tRoom[Random.Range(0,_tRoom.Count)];
                     break;
-                case RoomType.CROSS: tileToSpawn = _crossRoom;
+                case RoomType.CROSS: tileToSpawn = _crossRoom[Random.Range(0,_crossRoom.Count)];
                     break;
-                case RoomType.END: tileToSpawn = _endRoom;
+                case RoomType.END: tileToSpawn = _endRoom[Random.Range(0,_endRoom.Count)];
                     break;
-                case RoomType.STRAIGHT: tileToSpawn = _straightRoom;
+                case RoomType.STRAIGHT: tileToSpawn = _straightRoom[Random.Range(0,_straightRoom.Count)];
                     break;
-                case RoomType.TURN: tileToSpawn = _turnRoom;
+                case RoomType.TURN: tileToSpawn = _turnRoom[Random.Range(0,_turnRoom.Count)];
                     break;
             }
             tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);

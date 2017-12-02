@@ -18,10 +18,20 @@ public class FireController : MonoBehaviour {
 	[SerializeField]
 	private float playerProjectileDamage = 10f;
 	public float playerProjectileDamageMofidier = 1f;
+	public float ProjectileDamage {
+		get {
+			return playerProjectileDamage * playerProjectileDamageMofidier;
+		}
+	}
 
 	[SerializeField]
 	private float playerProjectileSpeed = 10f;
 	public float playerProjectileSpeedModifier = 1f;
+	public float ProjectileSpeed {
+		get {
+			return playerProjectileSpeed * playerProjectileSpeedModifier;
+		}
+	}
 
 	public float playerProjectileLifetime = 3f;
 
@@ -89,11 +99,10 @@ public class FireController : MonoBehaviour {
 	private void Rotate(float angle) {
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, angle + rotationOffset, transform.rotation.eulerAngles.z);
 	}
-
+				
 	private void Fire() {
-		if (fireCooldownCounter == 0) {
-			//Debug.Log ("Fire");
-			//Debug.DrawRay (transform.position, transform.forward * 10, Color.red);
+		Player player = GetComponent<Player> ();
+		if (Mathf.Approximately(fireCooldownCounter, 0f) && player.Ammo > 0) {
 			PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
 			instance.transform.position = new Vector3 (transform.position.x, instance.transform.position.y, transform.position.z);
 			instance.transform.rotation = transform.rotation;
@@ -101,6 +110,7 @@ public class FireController : MonoBehaviour {
 			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
 			instance.gameObject.SetActive (true);
 			fireCooldownCounter = fireCooldown;
+			player.DecreaseAmmo();
 		}
 	}
 

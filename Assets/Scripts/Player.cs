@@ -15,19 +15,33 @@ public class Player : MonoBehaviour {
 		get { 
 			return ammo;
 		}
-		private set { 
-			ammo = value;
-		}
 	}
 
-	public float health = 100f;
-
+	[SerializeField]
+	private float baseHealth = 100f;
+	[SerializeField]
+	private float health = 100f;
+	public float Health {
+		get { 
+			return health;
+		}
+		set {
+			health = Mathf.Clamp (value, 0f, baseHealth);
+		}
+	}
+		
 	private void Start () {
 		if (movementController == null) {
 			movementController = GetComponent<MovementController> ();
 		}
 		if (fireController == null) {
 			fireController = GetComponent<FireController> ();
+		}
+	}
+		
+	private void OnTriggerEnter(Collider collider) {
+		if (collider.tag == "AmmoCollectible") {
+			ammo += collider.GetComponent<AmmoCollectible> ().Collect();
 		}
 	}
 
@@ -43,6 +57,10 @@ public class Player : MonoBehaviour {
 		movementController.movementSpeedModifier *= modifier;
 		yield return new WaitForSeconds (time);
 		movementController.movementSpeedModifier /= modifier;
+	}
+
+	public float GetCurrentMovementSpeed() {
+		return movementController.MovementSpeed;
 	}
 
 	public void SetFireCooldown(float cooldown) { // permanently modifies fire cooldown
@@ -64,6 +82,10 @@ public class Player : MonoBehaviour {
 		fireController.RevertFireCooldownToBaseValue ();
 	}
 
+	public float GetCurrentFireCooldown() {
+		return fireController.fireCooldown;
+	}
+
 	public void SetProjectileDamageModifier(float modifier) { // permanently modifies projectile damage
 		fireController.playerProjectileDamageMofidier *= modifier;
 	}
@@ -78,8 +100,12 @@ public class Player : MonoBehaviour {
 		fireController.playerProjectileDamageMofidier /= modifier;
 	}
 
-	public void SetProjectileLifetime(float cooldown) { // permanently modifies projectile lifetime
-		fireController.fireCooldown = cooldown;
+	public float GetCurrentProjectileDamage() {
+		return fireController.ProjectileDamage;
+	}
+
+	public void SetProjectileLifetime(float lifetime) { // permanently modifies projectile lifetime
+		fireController.playerProjectileLifetime = lifetime;
 	}
 
 	public void SetProjectileLifetime(float lifetime, float time) { // modifies projectile lifetime for a given time
@@ -93,6 +119,7 @@ public class Player : MonoBehaviour {
 		fireController.playerProjectileLifetime = prevLifetime;
 	}
 
+<<<<<<< HEAD:Assets/Player.cs
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Enemy" )
@@ -106,5 +133,36 @@ public class Player : MonoBehaviour {
         Debug.Log(health);
     }
 
+=======
+	public float GetCurrentProjectileLifetime() {
+		return fireController.playerProjectileLifetime;
+	}
+
+	public void DecreaseHealth(float amount) {
+		health = Mathf.Clamp (health - amount, 0f, baseHealth);
+		if (health == 0) {
+			GameManager.GameOver ();
+		}
+	}
+		
+	public void IncreaseHealth(float amount) {
+		health = Mathf.Clamp (health + amount, 0f, baseHealth);
+	}
+
+	public void DecreaseAmmo() {
+		DecreaseAmmo (1);
+	}
+
+	public void DecreaseAmmo(int amount) {
+		ammo -= amount;
+		if (ammo < 0) {
+			ammo = 0;
+		}
+	}
+
+	public void IncreaseAmmo(int amount) {
+		ammo += amount;
+	}
+>>>>>>> player_controls:Assets/Scripts/Player.cs
 
 }

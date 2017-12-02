@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PooledObject : MonoBehaviour {
+public abstract class PooledObject : MonoBehaviour {
 
 	public ObjectPool parentPool;
 
@@ -10,5 +10,7 @@ public class PooledObject : MonoBehaviour {
 		transform.parent = parentPool.transform;
 		gameObject.SetActive (false);
 	}
+
+	public abstract void Setup ();
 
 }
