@@ -43,7 +43,7 @@ public class FireController : MonoBehaviour {
 
 	private void Start() {
 		if (projectilePool == null) {
-			Debug.LogError ("PlayerProjectile object pool not set.");
+			projectilePool = GameManager.GetObjectPool ("PlayerProjectilePool");
 		}
 	}
 

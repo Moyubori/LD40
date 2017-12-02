@@ -17,12 +17,16 @@ public class ObjectPool : MonoBehaviour {
 
 	private GameObject AddInstance() {
 		GameObject newInstance = Instantiate (prefab);
+		AddInstance (newInstance);
+		newInstance.SetActive (false);
+		return newInstance;
+	}
+
+	public void AddInstance(GameObject newInstance) {
 		newInstance.GetComponent<PooledObject> ().parentPool = this;
 		newInstance.transform.parent = transform;
-		newInstance.SetActive (false);
 		newInstance.GetComponent<PooledObject> ().Setup ();
 		pooledObjects.Add (newInstance);
-		return newInstance;
 	}
 
 	public GameObject GetInstance() {

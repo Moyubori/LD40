@@ -20,7 +20,7 @@ public class AmmoCollectible : Collectible {
 
 	public override void Collect() {
 		GameManager.Player.IncreaseAmmo (ammo);
-		gameObject.SetActive (false);
+		ReturnToPool ();
 	}
 
 }
