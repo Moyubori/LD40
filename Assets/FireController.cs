@@ -29,22 +29,22 @@ public class FireController : MonoBehaviour {
 
 	private float AngleToMousePos() {
 		Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		inputPos.Set (inputPos.x, inputPos.y, 0);
+		inputPos.Set (inputPos.x, 0, inputPos.z);
 		Debug.DrawLine (transform.position, inputPos, Color.magenta);
 		Vector3 inputPosDiff = inputPos - transform.position;
 		inputPosDiff.Normalize ();
-		return Mathf.Atan2(inputPosDiff.y, inputPosDiff.x) * Mathf.Rad2Deg - 90;
+		return -Mathf.Atan2(inputPosDiff.z, inputPosDiff.x) * Mathf.Rad2Deg + 90;
 	}
 
-	private float AngleToControllerInput(float x, float y) {
-		Vector3 inputPosDiff = new Vector3(x, y, transform.position.z);
+	private float AngleToControllerInput(float x, float z) {
+		Vector3 inputPosDiff = new Vector3(x, transform.position.y, z);
 		Debug.DrawLine (transform.position, transform.position + inputPosDiff, Color.green);
 		inputPosDiff.Normalize ();
-		return Mathf.Atan2(inputPosDiff.y, inputPosDiff.x) * Mathf.Rad2Deg - 90;
+		return -Mathf.Atan2(inputPosDiff.z, inputPosDiff.x) * Mathf.Rad2Deg + 90;
 	}
 
 	private void Rotate(float angle) {
-		transform.rotation = Quaternion.Euler (0, 0, angle + rotationOffset);
+		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, angle + rotationOffset, transform.rotation.eulerAngles.z);
 	}
 
 }

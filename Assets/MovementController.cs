@@ -10,7 +10,7 @@ public class MovementController : MonoBehaviour {
     private void Update () {
 		float horizontal = Mathf.Clamp(Input.GetAxis("xMovementController") + Input.GetAxis("xMovementKeyboard"), -1, 1);
 		float vertical = Mathf.Clamp(Input.GetAxis("yMovementController") + Input.GetAxis("yMovementKeyboard"), -1, 1);
-        GetComponent<Rigidbody2D>().velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+        GetComponent<Rigidbody>().velocity = new Vector3(horizontal * movementSpeed, 0, vertical * movementSpeed);
     }
 
 }
