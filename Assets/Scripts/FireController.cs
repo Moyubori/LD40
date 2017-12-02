@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FireController : MonoBehaviour {
 
+	public ObjectPool projectilePool;
+
 	[SerializeField]
 	private float rotationOffset = 0f;
 
@@ -13,28 +15,36 @@ public class FireController : MonoBehaviour {
 
 	private float prevAngle = 0f;
 
+	private void Start() {
+		if (projectilePool == null) {
+			Debug.LogError ("PlayerProjectile object pool not set.");
+		}
+	}
+
 	private void Update () {
 		HandleInput ();
 		fireCooldownCounter = Mathf.Clamp (fireCooldownCounter - Time.deltaTime, 0, fireCooldown);
 	}
 
 	private void HandleInput() {
-		float horizontalC = Input.GetAxis ("xFireController");
-		float verticalC = Input.GetAxis ("yFireController");
-		bool mouseMoved = (Input.GetAxis ("mouseX") != 0) || (Input.GetAxis ("mouseY") != 0);
-		bool mouseClicked = Input.GetMouseButton (0); // left mouse button
-		float angle = prevAngle;
-		if (mouseMoved || mouseClicked) {
-			angle = AngleToMousePos ();
-			if (mouseClicked) {
+		if (GameManager.PlayerInputAllowed) {
+			float horizontalC = Input.GetAxis ("xFireController");
+			float verticalC = Input.GetAxis ("yFireController");
+			bool mouseMoved = (Input.GetAxis ("mouseX") != 0) || (Input.GetAxis ("mouseY") != 0);
+			bool mouseClicked = Input.GetMouseButton (0); // left mouse button
+			float angle = prevAngle;
+			if (mouseMoved || mouseClicked) {
+				angle = AngleToMousePos ();
+				if (mouseClicked) {
+					Fire ();
+				}
+			} else if ((horizontalC != 0) || (verticalC != 0)) {
+				angle = AngleToControllerInput (horizontalC, verticalC);
 				Fire ();
 			}
-		} else if ((horizontalC != 0) || (verticalC != 0)) {
-			angle = AngleToControllerInput (horizontalC, verticalC);
-			Fire ();
+			prevAngle = angle;
+			Rotate (angle);
 		}
-		prevAngle = angle;
-		Rotate (angle);
 	}
 
 	private float AngleToMousePos() {
@@ -59,8 +69,12 @@ public class FireController : MonoBehaviour {
 
 	private void Fire() {
 		if (fireCooldownCounter == 0) {
-			Debug.Log ("Fire");
-			Debug.DrawRay (transform.position, transform.forward * 10, Color.red);
+			//Debug.Log ("Fire");
+			//Debug.DrawRay (transform.position, transform.forward * 10, Color.red);
+			PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
+			instance.transform.position = new Vector3 (transform.position.x, instance.transform.position.y, transform.position.z);
+			instance.transform.rotation = transform.rotation;
+			instance.gameObject.SetActive (true);
 			fireCooldownCounter = fireCooldown;
 		}
 	}
