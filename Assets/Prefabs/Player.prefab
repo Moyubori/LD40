@@ -210,6 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationOffset: 0
+  fireCooldown: 0.3
+  fireCooldownCounter: 0
 --- !u!114 &114320822247168724
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,21 +7,31 @@ public class FireController : MonoBehaviour {
 	[SerializeField]
 	private float rotationOffset = 0f;
 
-	private float prevAngle;
+	public float fireCooldown = 1f;
+	[SerializeField]
+	private float fireCooldownCounter = 0f;
 
-	private void Awake() {
-		prevAngle = 0;
-	}
+	private float prevAngle = 0f;
 
 	private void Update () {
+		HandleInput ();
+		fireCooldownCounter = Mathf.Clamp (fireCooldownCounter - Time.deltaTime, 0, fireCooldown);
+	}
+
+	private void HandleInput() {
 		float horizontalC = Input.GetAxis ("xFireController");
 		float verticalC = Input.GetAxis ("yFireController");
 		bool mouseMoved = (Input.GetAxis ("mouseX") != 0) || (Input.GetAxis ("mouseY") != 0);
+		bool mouseClicked = Input.GetMouseButton (0); // left mouse button
 		float angle = prevAngle;
-		if (mouseMoved) {
+		if (mouseMoved || mouseClicked) {
 			angle = AngleToMousePos ();
+			if (mouseClicked) {
+				Fire ();
+			}
 		} else if ((horizontalC != 0) || (verticalC != 0)) {
 			angle = AngleToControllerInput (horizontalC, verticalC);
+			Fire ();
 		}
 		prevAngle = angle;
 		Rotate (angle);
@@ -45,6 +55,14 @@ public class FireController : MonoBehaviour {
 
 	private void Rotate(float angle) {
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, angle + rotationOffset, transform.rotation.eulerAngles.z);
+	}
+
+	private void Fire() {
+		if (fireCooldownCounter == 0) {
+			Debug.Log ("Fire");
+			Debug.DrawRay (transform.position, transform.forward * 10, Color.red);
+			fireCooldownCounter = fireCooldown;
+		}
 	}
 
 }
