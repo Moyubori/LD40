@@ -5,12 +5,14 @@ using UnityEngine;
 public abstract class PooledObject : MonoBehaviour {
 
 	public ObjectPool parentPool;
+	[SerializeField]
+	protected string objectTypeName;
 
 	public void ReturnToPool() {
 		transform.parent = parentPool.transform;
 		gameObject.SetActive (false);
 	}
 
-	public abstract void Setup ();
+	public virtual void Setup () {}
 
 }

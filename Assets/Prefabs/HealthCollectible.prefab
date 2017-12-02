@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915218abed4e7bc499f54a9c5a796b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentPool: {fileID: 0}
+  objectTypeName: Health
   animateMesh: 1
   mesh: {fileID: 4445632647837348}
   health: 20
