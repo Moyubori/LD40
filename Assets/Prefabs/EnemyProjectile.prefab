@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114022990813462928}
   m_Layer: 0
   m_Name: EnemyProjectile
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentPool: {fileID: 0}
   baseSpeed: 10
-  speedModifier: 1
   baseLifetime: 3
-  lifetimeModifier: 1
+  baseDamage: 10
+  speed: 0
+  lifetime: 0
+  damage: 0

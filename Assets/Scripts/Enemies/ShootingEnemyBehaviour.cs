@@ -16,6 +16,7 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
     void Start ()
 	{
 	    _shootingInterval = 0.5f;
+	    Damage = 5;
 	    Health = 100;
         _player = GameObject.Find("Player");
 	}
@@ -42,6 +43,7 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
         transform.LookAt(_player.transform.position);
         var instance = _projectilePool.GetInstance().GetComponent<EnemyProjectile>();
         instance.transform.position = new Vector3(transform.position.x, instance.transform.position.y, transform.position.z);
+        instance.damage = Damage;
         instance.transform.rotation = transform.rotation;
         instance.gameObject.SetActive(true);
     }

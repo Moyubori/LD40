@@ -14,13 +14,14 @@ public class PlayerProjectile : PooledObject {
 	public float speed;
 	public float lifetime;
 	public float damage;
-
+    public float timer;
 	private void Start () {
 		SetupPhysics ();
 	}
 
 	private void OnEnable() {
-		StartCoroutine (LaunchProjectile ());
+		//StartCoroutine (LaunchProjectile ());
+	    timer = baseLifetime;
 	}
 
 	private void OnCollisionEnter(Collision collision) {
@@ -29,6 +30,13 @@ public class PlayerProjectile : PooledObject {
 		}
 	}
 
+    void Update()
+    {
+        if (timer>0){
+            GetComponent<Rigidbody>().velocity = transform.forward * speed;
+            timer -= Time.deltaTime;
+        }
+    }
 	private void SetupPhysics() {
 		Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
 		Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());

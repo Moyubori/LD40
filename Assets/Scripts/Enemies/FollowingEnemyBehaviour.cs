@@ -11,6 +11,7 @@ public class FollowingEnemyBehaviour : EnemyBehaviour
 	void Start ()
 	{
 	    _player = GameObject.Find("Player");
+	    Damage = 5;
 	    Health = 100;
 	}
 	

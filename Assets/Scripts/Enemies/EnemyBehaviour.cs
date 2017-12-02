@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour {
     [SerializeField]
     private GameObject _particles;
+
+    [SerializeField] private float _damage;
     // Use this for initialization
     void Start () {
 		
@@ -16,6 +18,11 @@ public class EnemyBehaviour : MonoBehaviour {
 	}
     public float Health { get; set; }
 
+    public float Damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
+    }
 
     void OnCollisionEnter(Collision col)
     {

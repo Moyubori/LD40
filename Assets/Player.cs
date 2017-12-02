@@ -93,5 +93,18 @@ public class Player : MonoBehaviour {
 		fireController.playerProjectileLifetime = prevLifetime;
 	}
 
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "Enemy" )
+        {
+            health -= col.gameObject.GetComponent<EnemyBehaviour>().Damage;
+        }
+        else if (col.gameObject.tag == "EnemyProjectile")
+        {
+            health -= col.gameObject.GetComponent<EnemyProjectile>().damage;
+        }
+        Debug.Log(health);
+    }
+
 
 }
