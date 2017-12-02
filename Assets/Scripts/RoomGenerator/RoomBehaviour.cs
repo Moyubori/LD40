@@ -51,10 +51,10 @@ public class RoomBehaviour : MonoBehaviour
 	    }
 	    foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
 	    {
-	        if (!e.activeInHierarchy || !(e.transform.position.x < transform.position.x + 8) ||
-	            !(e.transform.position.x > transform.position.x - 8) ||
-	            !(e.transform.position.z < transform.position.z + 8) ||
-	            !(e.transform.position.z > transform.position.z - 8)) continue;
+	        if (!e.activeInHierarchy || !(e.transform.position.x < transform.position.x + 7) ||
+	            !(e.transform.position.x > transform.position.x - 7) ||
+	            !(e.transform.position.z < transform.position.z + 7) ||
+	            !(e.transform.position.z > transform.position.z - 7)) continue;
 	        if (!_enemies.Contains(e))
 	        {
 	            _enemies.Add(e);

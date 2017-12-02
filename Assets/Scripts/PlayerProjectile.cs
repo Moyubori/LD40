@@ -12,25 +12,27 @@ public class PlayerProjectile : PooledObject
     [SerializeField]
     private float baseDamage = 10f;
 
+
     public float speed;
     public float lifetime;
     public float damage;
-    //<<<<<<< HEAD
+  
     public float timer;
-    private void Start()
-    {
-        SetupPhysics();
-    }
-    //=======
+   
+    
+  
+    
 
-    private bool physicsSet;
-    //>>>>>>> player_controls
+	private void Start () {
+	
+	}
 
-    private void OnEnable()
-    {
-        //StartCoroutine (LaunchProjectile ());
-        timer = baseLifetime;
-    }
+	private bool physicsSet = false;
+
+	private void OnEnable() {
+	    timer = baseLifetime;
+	}
+
 
     public override void Setup()
     {
@@ -45,33 +47,29 @@ public class PlayerProjectile : PooledObject
         }
     }
 
-    //<<<<<<< HEAD
-    void Update()
-    {
-        if (timer > 0)
-        {
-            GetComponent<Rigidbody>().velocity = transform.forward * speed;
-            timer -= Time.deltaTime;
-        }
+
+    void Update() {
+		if (timer > 0) {
+			GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+			timer -= Time.deltaTime;
+		} else {
+			Disable ();
+		}
     }
 
-    //=======
-    private void SetupPhysics()
-    {
-        if (!physicsSet)
-        {
-            Collider playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>();
-            Physics.IgnoreCollision(playerCollider, GetComponent<Collider>());
-            List<GameObject> otherProjectiles = parentPool.GetAllInstances();
-            otherProjectiles.ForEach(projectile =>
-            {
-                Collider collider = projectile.GetComponent<Collider>();
-                Physics.IgnoreCollision(collider, GetComponent<Collider>());
-            });
-            physicsSet = true;
-        }
-        //>>>>>>> player_controls
-    }
+	private void SetupPhysics() {
+		if (!physicsSet) {
+			Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
+			Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());
+			List<GameObject> otherProjectiles = parentPool.GetAllInstances ();
+			otherProjectiles.ForEach (projectile => {
+				Collider collider = projectile.GetComponent<Collider> ();
+				Physics.IgnoreCollision (collider, GetComponent<Collider> ());
+			});
+			physicsSet = true;
+		}
+	}
+
 
     IEnumerator LaunchProjectile()
     {

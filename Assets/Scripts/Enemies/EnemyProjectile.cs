@@ -17,9 +17,11 @@ public class EnemyProjectile : PooledObject
     public float damage;
 
     private void Start()
-    {
-       
+        {
+        
+
     }
+
 
     private void OnEnable()
     {
