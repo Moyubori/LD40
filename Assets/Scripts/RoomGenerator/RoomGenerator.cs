@@ -33,12 +33,9 @@ public class RoomGenerator : MonoBehaviour
 	    _posX = _posY = 7;
         _rooms = new List<Room>();
         _rooms.Add(new Room(7,7));
-        surfaces = new List<NavMeshSurface>();
+        //surfaces = new List<NavMeshSurface>();
         GenerateMap();
-	    foreach (var s in surfaces)
-	    {
-	        s.BuildNavMesh();
-	    }
+	    surfaces[0].BuildNavMesh();
 	}
 	
 	// Update is called once per frame
@@ -94,14 +91,7 @@ public class RoomGenerator : MonoBehaviour
             }
             tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);
             var room = Instantiate(tileToSpawn, new Vector3(16*r.X, 0, 16*r.Y), tileToSpawn.transform.rotation);
-            for (int i = 0; i < room.transform.childCount; i++)
-            {
-                var surface = room.transform.GetChild(i).GetComponent<NavMeshSurface>();
-                if (surface != null)
-                {
-                    surfaces.Add(surface);
-                }
-            }
+            
             
         }
     }
