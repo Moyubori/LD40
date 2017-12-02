@@ -9,11 +9,27 @@ public class FireController : MonoBehaviour {
 	[SerializeField]
 	private float rotationOffset = 0f;
 
-	public float fireCooldown = 1f;
+	[SerializeField]
+	private float baseFireCooldown = 0.1f;
+	public float fireCooldown;
 	[SerializeField]
 	private float fireCooldownCounter = 0f;
 
+	[SerializeField]
+	private float playerProjectileDamage = 10f;
+	public float playerProjectileDamageMofidier = 1f;
+
+	[SerializeField]
+	private float playerProjectileSpeed = 10f;
+	public float playerProjectileSpeedModifier = 1f;
+
+	public float playerProjectileLifetime = 3f;
+
 	private float prevAngle = 0f;
+
+	private void Awake() {
+		fireCooldown = baseFireCooldown;
+	}
 
 	private void Start() {
 		if (projectilePool == null) {
@@ -24,6 +40,10 @@ public class FireController : MonoBehaviour {
 	private void Update () {
 		HandleInput ();
 		fireCooldownCounter = Mathf.Clamp (fireCooldownCounter - Time.deltaTime, 0, fireCooldown);
+	}
+
+	public void RevertFireCooldownToBaseValue() {
+		fireCooldown = baseFireCooldown;
 	}
 
 	private void HandleInput() {
@@ -43,8 +63,8 @@ public class FireController : MonoBehaviour {
 
 			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
 			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
-			Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
-			if ((horizontalC / sinY) >= 1f || (verticalC / cosY) >= 1f || mouseClicked) {
+			//Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
+			if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked) {
 				Fire ();
 			}
 		}
@@ -77,6 +97,8 @@ public class FireController : MonoBehaviour {
 			PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
 			instance.transform.position = new Vector3 (transform.position.x, instance.transform.position.y, transform.position.z);
 			instance.transform.rotation = transform.rotation;
+			instance.damage = playerProjectileDamage * playerProjectileDamageMofidier;
+			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
 			instance.gameObject.SetActive (true);
 			fireCooldownCounter = fireCooldown;
 		}
