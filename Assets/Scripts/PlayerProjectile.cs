@@ -9,12 +9,23 @@ public class PlayerProjectile : PooledObject {
 
 	public float speedModifier = 1f;
 
-	void Start () {
+	[SerializeField]
+	private float baseLifetime = 3f;
+
+	public float lifetimeModifier = 1f;
+
+	private void Start () {
 		SetupPhysics ();
 	}
 
-	void OnEnable() {
+	private void OnEnable() {
 		StartCoroutine (LaunchProjectile ());
+	}
+
+	private void OnCollisionEnter(Collision collision) {
+		if (collision.collider.tag != "Player") {
+			Disable ();
+		}
 	}
 
 	private void SetupPhysics() {
@@ -29,7 +40,11 @@ public class PlayerProjectile : PooledObject {
 
 	private IEnumerator LaunchProjectile() {
 		GetComponent<Rigidbody> ().velocity = transform.forward * baseSpeed * speedModifier;
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (baseLifetime * lifetimeModifier);
+		Disable ();
+	}
+
+	public void Disable() {
 		GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		ReturnToPool ();
 	}
