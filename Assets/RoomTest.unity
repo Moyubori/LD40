@@ -230,13 +230,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7d43c97c9a18c4592b652c7538f846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dungeonSize: 64
+  _dungeonSize: 4
   _testRoom: {fileID: 993347433}
-  _crossRoom: {fileID: 0}
-  _straightRoom: {fileID: 0}
-  _turnRoom: {fileID: 0}
-  _endRoom: {fileID: 0}
-  _tRoom: {fileID: 0}
+  _crossRoom: {fileID: 993347433}
+  _straightRoom: {fileID: 293620422}
+  _turnRoom: {fileID: 2144766972}
+  _endRoom: {fileID: 334889271}
+  _tRoom: {fileID: 882079972}
 --- !u!1 &119750239
 GameObject:
   m_ObjectHideFlags: 0

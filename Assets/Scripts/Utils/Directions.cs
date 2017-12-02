@@ -6,6 +6,6 @@ using System.Text;
 namespace Assets.Scripts.Utils
 {
     enum Directions
-    {UP,DOWN,LEFT,RIGHT
+    {DOWN, LEFT, UP, RIGHT
     }
 }

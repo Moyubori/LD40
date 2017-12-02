@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.RoomGenerator;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -16,6 +18,13 @@ public class RoomGenerator : MonoBehaviour
 	void Start ()
 	{
 	    _map = new bool[15, 15];
+	    for (int i = 0; i < _map.GetLength(0); i++)
+	    {
+	        for (int j = 0; j < _map.GetLength(1); j++)
+	        {
+	            _map[i,j] = false;
+	        }
+	    }
 	    _map[7, 7] = true; //settining middle
 	    _posX = _posY = 7;
         _rooms = new List<Room>();
@@ -43,9 +52,39 @@ public class RoomGenerator : MonoBehaviour
             }
             CreateRoom();
         }
+        for (int i = 0; i < _map.GetLength(0); i++)
+        {
+            for (int j = 0; j < _map.GetLength(1); j++)
+            {
+                _map[i, j] = false;
+                _map[i, j] = _rooms.Any(r => r.X == i && r.Y == j);
+            }
+        }
+       
         foreach (var r in _rooms)
         {
-            Instantiate(_testRoom, new Vector3(16*r.X, 0, 16*r.Y), _testRoom.transform.rotation);
+            bool []openSides = new bool[4];
+            if (r.X-1>=0&&_map[r.X - 1, r.Y]) openSides[(int)Directions.LEFT] = true;
+            if( r.X + 1 < _map.GetLength(0) && _map[r.X+1,r.Y]) openSides[(int)Directions.RIGHT] = true;
+            if (r.Y + 1 < _map.GetLength(0) && _map[r.X , r.Y+1]) openSides[(int)Directions.UP] = true;
+            if (r.Y- 1 >= 0  && _map[r.X , r.Y-1]) openSides[(int)Directions.DOWN] = true;
+            r.OpenSides = openSides;
+            GameObject tileToSpawn=null;
+            switch (r.Type)
+            {
+                case RoomType.T: tileToSpawn = _tRoom;
+                    break;
+                case RoomType.CROSS: tileToSpawn = _crossRoom;
+                    break;
+                case RoomType.END: tileToSpawn = _endRoom;
+                    break;
+                case RoomType.STRAIGHT: tileToSpawn = _straightRoom;
+                    break;
+                case RoomType.TURN: tileToSpawn = _turnRoom;
+                    break;
+            }
+            tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);
+            Instantiate(tileToSpawn, new Vector3(16*r.X, 0, 16*r.Y), tileToSpawn.transform.rotation);
         }
     }
 

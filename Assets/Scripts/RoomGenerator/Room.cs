@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.RoomGenerator;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 public class Room 
@@ -43,15 +44,15 @@ public class Room
                     Type = RoomType.END;
                     break;
                 case 2:
-                    for (int i = 1; i < 4; i++)
+                    Type = RoomType.STRAIGHT;
+                    for (int i = 0; i < 4; i++)
                     {
-                        if (_openSides[i] == _openSides[i - 1])
+                        if (_openSides[i] == _openSides[(i + 1)%4])
                         {
                             Type = RoomType.TURN;
                             break;
                         }
                     }
-                    Type = RoomType.STRAIGHT;
                     break;
                 case 3: 
                     Type = RoomType.T;
@@ -60,7 +61,36 @@ public class Room
                     Type = RoomType.CROSS;
                     break;
             }
+            switch (Type)
+            {
+                case RoomType.STRAIGHT:
+                    if (_openSides[(int) Directions.DOWN]) Rotation =  90;
+                    break;
+                case RoomType.END:
+                    for (int i = 0; i <4; i ++)
+                    {
+                        if (_openSides[i]) Rotation =  i * 90+90;
+                        
+                    }
+                    
+                    break;
+                case RoomType.T:
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (_openSides[i]&&_openSides[(i+2)%4]&&_openSides[(i+3)%4]) Rotation =  i * 90;
+                    }
+                    
+                    break;
+                case RoomType.TURN:
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (_openSides[i] && _openSides[(i +1) % 4] ) Rotation = i * 90+180;
+                    }
+                    break;
+                    
+            }
         }
+       
     }
     public int X
     {
