@@ -12,12 +12,6 @@ public class MovementController : MonoBehaviour {
 		HandleInput ();
     }
 
-	private void OnTriggerEnter(Collider collider) {
-		if (collider.tag == "AmmoCollectible") {
-			collider.GetComponent<AmmoCollectible> ();
-		}
-	}
-
 	private void HandleInput() {
 		if (GameManager.PlayerInputAllowed) {
 			float horizontal = Mathf.Clamp(Input.GetAxis("xMovementController") + Input.GetAxis("xMovementKeyboard"), -1, 1);

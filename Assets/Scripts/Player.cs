@@ -9,17 +9,7 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private FireController fireController;
 
-	[SerializeField]
-	private int ammo = 0;
-	public int Ammo {
-		get { 
-			return ammo;
-		}
-		private set { 
-			ammo = value;
-		}
-	}
-
+	public int ammo = 0;
 	public float health = 100f;
 
 	private void Start () {
@@ -28,6 +18,12 @@ public class Player : MonoBehaviour {
 		}
 		if (fireController == null) {
 			fireController = GetComponent<FireController> ();
+		}
+	}
+		
+	private void OnTriggerEnter(Collider collider) {
+		if (collider.tag == "AmmoCollectible") {
+			ammo += collider.GetComponent<AmmoCollectible> ().Collect();
 		}
 	}
 

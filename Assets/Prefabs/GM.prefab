@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d702d4dae00e2eb45a357849b75dae67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  instancesPooledOnStart: 0
+  prefab: {fileID: 1862307171269676, guid: 1ba57b14b252d3f43b2fd5c0cd4f9dc7, type: 2}
+  instancesPooledOnStart: 30
 --- !u!114 &114467927464979980
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -15,12 +15,14 @@ public class PlayerProjectile : PooledObject {
 	public float lifetime;
 	public float damage;
 
-	private void Start () {
-		SetupPhysics ();
-	}
+	private bool physicsSet = false;
 
 	private void OnEnable() {
 		StartCoroutine (LaunchProjectile ());
+	}
+
+	public override void Setup() {
+		SetupPhysics ();
 	}
 
 	private void OnCollisionEnter(Collision collision) {
@@ -29,14 +31,17 @@ public class PlayerProjectile : PooledObject {
 		}
 	}
 
-	private void SetupPhysics() {
-		Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
-		Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());
-		List<GameObject> otherProjectiles = parentPool.GetAllInstances ();
-		otherProjectiles.ForEach (projectile => {
-			Collider collider = projectile.GetComponent<Collider> ();
-			Physics.IgnoreCollision(collider, GetComponent<Collider>());
-		});
+	public void SetupPhysics() {
+		if (!physicsSet) {
+			Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
+			Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());
+			List<GameObject> otherProjectiles = parentPool.GetAllInstances ();
+			otherProjectiles.ForEach (projectile => {
+				Collider collider = projectile.GetComponent<Collider> ();
+				Physics.IgnoreCollision (collider, GetComponent<Collider> ());
+			});
+			physicsSet = true;
+		}
 	}
 
 	private IEnumerator LaunchProjectile() {

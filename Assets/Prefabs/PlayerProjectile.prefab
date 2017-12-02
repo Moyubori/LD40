@@ -152,4 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentPool: {fileID: 0}
   baseSpeed: 15
-  speedModifier: 1
+  baseLifetime: 3
+  baseDamage: 10
+  speed: 0
+  lifetime: 0
+  damage: 0
