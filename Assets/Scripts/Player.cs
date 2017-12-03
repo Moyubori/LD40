@@ -16,6 +16,8 @@ public class Player : MonoBehaviour {
 			return ammo;
 		}
 	}
+	[SerializeField]
+	private bool overrideDamageModifier = false;
 
 	[SerializeField]
 	private float baseHealth = 100f;
@@ -29,6 +31,8 @@ public class Player : MonoBehaviour {
 			health = Mathf.Clamp (value, 0f, baseHealth);
 		}
 	}
+	[SerializeField]
+	private bool overriderFireCooldown = false;
 		
 	private void Start () {
 		if (movementController == null) {
@@ -37,6 +41,11 @@ public class Player : MonoBehaviour {
 		if (fireController == null) {
 			fireController = GetComponent<FireController> ();
 		}
+	}
+
+	private void Update() {
+		UpdateDamageModifier ();
+		UpdateFireCooldownModifier ();
 	}
 		
 	private void OnTriggerEnter(Collider collider) {
@@ -72,10 +81,12 @@ public class Player : MonoBehaviour {
 	}
 
 	private IEnumerator TimedFireCooldownModifier(float cooldown, float time) { // Warning: do not launch this multiple times at once or things WILL break
+		overriderFireCooldown = true;
 		float prevCooldown = fireController.fireCooldown;
 		fireController.fireCooldown = cooldown;
 		yield return new WaitForSeconds (time);
 		fireController.fireCooldown = prevCooldown;
+		overriderFireCooldown = false;
 	}
 
 	public void RevertFireCooldownToBaseValue() {
@@ -95,9 +106,11 @@ public class Player : MonoBehaviour {
 	}
 
 	private IEnumerator TimedProjectileDamageModifier(float modifier, float time) {
+		overrideDamageModifier = true;
 		fireController.playerProjectileDamageMofidier *= modifier;
 		yield return new WaitForSeconds (time);
 		fireController.playerProjectileDamageMofidier /= modifier;
+		overrideDamageModifier = false;
 	}
 
 	public float GetCurrentProjectileDamage() {
@@ -147,6 +160,20 @@ public class Player : MonoBehaviour {
 
 	public void IncreaseAmmo(int amount) {
 		ammo += amount;
+	}
+
+	public void UpdateDamageModifier() {
+		if (!overrideDamageModifier) {
+			float modifier = Mathf.Clamp (-0.001f * ammo + 1.1f, 0.1f, 1f);
+			SetProjectileDamageModifier (modifier);
+		}
+	}
+
+	public void UpdateFireCooldownModifier() {
+		if(!overriderFireCooldown) {
+			float fireCooldown = Mathf.Clamp (0.5f * health / baseHealth, 0.1f, 0.5f);
+			SetFireCooldown (fireCooldown);
+		}
 	}
 
 }
