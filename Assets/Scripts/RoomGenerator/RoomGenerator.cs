@@ -15,7 +15,7 @@ public class RoomGenerator : MonoBehaviour
     private int _dungeonSize;
     private int _posX, _posY;
     [SerializeField]
-    private GameObject  _mapGO;
+    private GameObject  _mapGO,_player;
     [SerializeField]
     private List<GameObject> _testRoom, _crossRoom, _straightRoom, _turnRoom, _endRoom, _tRoom;
     public List<NavMeshSurface> surfaces;
@@ -36,6 +36,8 @@ public class RoomGenerator : MonoBehaviour
 	    surfaces = new List<NavMeshSurface>();
         GenerateMap();
 	    surfaces[0].BuildNavMesh();
+        _player.transform.position = new Vector3(16f*_rooms[0].X,0.5f,16f*_rooms[0].Y);
+        _player.GetComponent<Player>().IncreaseAmmo(100);
     }
 	
 	// Update is called once per frame

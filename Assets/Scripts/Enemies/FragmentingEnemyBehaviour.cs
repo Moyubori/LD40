@@ -20,7 +20,9 @@ public class FragmentingEnemyBehaviour : EnemyBehaviour {
 	void Update ()
 	{
 	    GetComponent<NavMeshAgent>().destination=(_player.transform.position);
-	    if (Stage<2 &&Health / _fullHealth<=0.75f)
+	    transform.GetChild(0).eulerAngles = new Vector3(45,0,0);
+	    transform.GetChild(0).GetChild(0).localEulerAngles = transform.eulerAngles;
+        if (Stage<2 &&Health / _fullHealth<=0.75f)
 	    {
 	        for (int i = 0; i < 2; i++)
 	        {
@@ -30,7 +32,7 @@ public class FragmentingEnemyBehaviour : EnemyBehaviour {
 	            obj.GetComponent<FragmentingEnemyBehaviour>().FullHealth = Health;
 	            obj.GetComponent<FragmentingEnemyBehaviour>().Stage=Stage+1;
 	            
-                obj.GetComponent<BoxCollider>().size *= 2;
+                obj.GetComponent<BoxCollider>().size =new Vector3(obj.GetComponent<BoxCollider>().size.x,obj.GetComponent<BoxCollider>().size.y*2,obj.GetComponent<BoxCollider>().size.z); 
 	        }
             Destroy(this.gameObject);
 	    }

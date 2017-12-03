@@ -24,9 +24,12 @@ public class FireController : MonoBehaviour {
 		}
 	}
 
+    [SerializeField] private GameObject representation;
 	[SerializeField]
 	private float playerProjectileSpeed = 10f;
 	public float playerProjectileSpeedModifier = 1f;
+
+    public bool Firing;
 	public float ProjectileSpeed {
 		get {
 			return playerProjectileSpeed * playerProjectileSpeedModifier;
@@ -45,6 +48,7 @@ public class FireController : MonoBehaviour {
 		if (projectilePool == null) {
 			projectilePool = GameManager.GetObjectPool ("PlayerProjectilePool");
 		}
+	    representation = GameObject.Find("Pivot");
 	}
 
 	private void Update () {
@@ -71,12 +75,18 @@ public class FireController : MonoBehaviour {
 			prevAngle = angle;
 			Rotate (angle);
 
-			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
-			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
+			float sinY = Mathf.Sin (transform.localRotation.eulerAngles.y * Mathf.Deg2Rad);
+			float cosY = Mathf.Cos(transform.localRotation.eulerAngles.y * Mathf.Deg2Rad);
 			//Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
-			if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked) {
-				Fire ();
-			}
+		    if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked)
+		    {
+		        Fire();
+		        
+		    }
+		    else
+		    {
+		        Firing = false;
+		    }
 		}
 	}
 
@@ -98,20 +108,32 @@ public class FireController : MonoBehaviour {
 
 	private void Rotate(float angle) {
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, angle + rotationOffset, transform.rotation.eulerAngles.z);
-	}
+	    representation.transform.position = transform.position;
+       representation.transform.GetChild(0).localRotation = Quaternion.Euler(representation.transform.GetChild(0).localRotation.eulerAngles.x, angle + rotationOffset, representation.transform.GetChild(0).localRotation.eulerAngles.z);
+    }
 				
 	private void Fire() {
 		Player player = GetComponent<Player> ();
 		if (Mathf.Approximately(fireCooldownCounter, 0f) && player.Ammo > 0) {
-			PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
+		    Firing = true;
+            PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
 			instance.transform.position = new Vector3 (transform.position.x, instance.transform.position.y, transform.position.z);
 			instance.transform.rotation = transform.rotation;
 			instance.damage = playerProjectileDamage * playerProjectileDamageMofidier;
 			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
 			instance.gameObject.SetActive (true);
+            instance.gameObject.transform.localScale= new Vector3(1,1,1)+new Vector3(playerProjectileDamage * playerProjectileDamageMofidier/playerProjectileDamage,
+                playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage,
+                playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage);
 			fireCooldownCounter = fireCooldown;
 			player.DecreaseAmmo();
+            
 		}
+        else if (player.Ammo <= 0)
+	    {
+
+	        Firing = false;
+	    }
 	}
 
 }

@@ -41,7 +41,7 @@ public class PlayerProjectile : PooledObject
 		SetupPhysics ();
 		speed = baseSpeed;
 		lifetime = baseLifetime;
-		damage = baseDamage;
+		//damage = baseDamage;
 	}
 
 
@@ -75,6 +75,10 @@ public class PlayerProjectile : PooledObject
 				Collider collider = projectile.GetComponent<Collider> ();
 				Physics.IgnoreCollision (collider, GetComponent<Collider> ());
 			});
+            foreach (var pooledObject in GameObject.FindObjectsOfType<PooledObject>())
+		    {
+		        Physics.IgnoreCollision(pooledObject.gameObject.GetComponent<Collider>(),GetComponent<Collider>());
+		    }
 			physicsSet = true;
 		}
 	}
@@ -93,7 +97,7 @@ public class PlayerProjectile : PooledObject
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         speed = baseSpeed;
         lifetime = baseLifetime;
-        damage = baseDamage;
+        //damage = baseDamage;
         ReturnToPool();
     }
 

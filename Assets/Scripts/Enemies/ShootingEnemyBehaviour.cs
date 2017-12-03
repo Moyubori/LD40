@@ -19,7 +19,7 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
 	    Damage = 5;
 	    Health = 100;
         _player = GameObject.Find("Player");
-	   _projectilePool =  GameObject.FindObjectsOfType<ObjectPool>()[0];
+	   _projectilePool =  GameObject.Find("EnemyProjectilePool").GetComponent<ObjectPool>();
 	}
 	
 	// Update is called once per frame
@@ -29,15 +29,18 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
 	    if (Vector3.Distance(transform.position, _player.transform.position) > _range)
 	    {
 	        GetComponent<NavMeshAgent>().destination = _player.transform.position;
-            transform.LookAt(_player.transform.position);
-	        return;
 	    }
-	    if (_timer > _shootingInterval)
+	    transform.LookAt(_player.transform.position);
+	    transform.GetChild(0).eulerAngles = new Vector3(45, 0, 0);
+	    transform.GetChild(0).GetChild(0).localEulerAngles = transform.eulerAngles;
+        if (_timer > _shootingInterval)
 	    {
 	        _timer = 0;
             Shoot();
 	    }
-	}
+	    
+	    
+    }
 
     void Shoot()
     {

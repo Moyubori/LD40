@@ -15,8 +15,9 @@ public class EnemyBehaviour : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+	   
 	}
     public float Health { get; set; }
 
@@ -29,8 +30,12 @@ public class EnemyBehaviour : MonoBehaviour {
     void OnCollisionEnter(Collision col)
     {
         var projectile = col.gameObject.GetComponent<PlayerProjectile>();
-        if(projectile != null)
-        TakeDamage(projectile.damage);
+        if (projectile != null)
+        {
+            Debug.Log(projectile.damage);
+            TakeDamage(projectile.damage);
+            
+        }
     }
     public void TakeDamage(float damage)
     {

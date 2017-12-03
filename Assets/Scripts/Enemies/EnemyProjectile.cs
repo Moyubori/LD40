@@ -43,6 +43,7 @@ public class EnemyProjectile : PooledObject
         var enemyCollider = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var e in enemyCollider)
         {
+            if(e.GetComponent<Collider>()!=null)
             Physics.IgnoreCollision(e.GetComponent<Collider>(), GetComponent<Collider>());
             }
         List<GameObject> otherProjectiles = parentPool.GetAllInstances();
@@ -50,6 +51,10 @@ public class EnemyProjectile : PooledObject
             Collider collider = projectile.GetComponent<Collider>();
             Physics.IgnoreCollision(collider, GetComponent<Collider>());
         });
+        foreach (var pooledObject in GameObject.FindObjectsOfType<PooledObject>())
+        {
+            Physics.IgnoreCollision(pooledObject.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+        }
     }
 
     private IEnumerator LaunchProjectile()

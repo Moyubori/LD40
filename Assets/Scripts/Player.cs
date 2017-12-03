@@ -98,7 +98,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetProjectileDamageModifier(float modifier) { // permanently modifies projectile damage
-		fireController.playerProjectileDamageMofidier *= modifier;
+		fireController.playerProjectileDamageMofidier = modifier;
 	}
 
 	public void SetProjectileDamageModifier(float modifier, float time) { // modifies prtojectile damage for a given time
@@ -178,7 +178,8 @@ public class Player : MonoBehaviour {
 
 	public void UpdateDamageModifier() {
 		if (!overrideDamageModifier) {
-			float modifier = Mathf.Clamp (-0.001f * ammo + 1.1f, 0.1f, 1f);
+            //Debug.Log(Mathf.Clamp((-Mathf.Log10(ammo) / 2 + 1) * 10, 0.1f, 100f));
+			float modifier = Mathf.Clamp ((-Mathf.Log10(ammo) / 2 + 1) * 10, 0.1f, 100f);
 			SetProjectileDamageModifier (modifier);
 		}
 	}
@@ -190,5 +191,9 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+    public FireController FireController
+    {
+        get { return this.fireController; }
+    }
 
 }

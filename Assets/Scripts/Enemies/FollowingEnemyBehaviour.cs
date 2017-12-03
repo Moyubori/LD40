@@ -20,5 +20,7 @@ public class FollowingEnemyBehaviour : EnemyBehaviour
 	{
 	    
 	    GetComponent<NavMeshAgent>().destination =_player.transform.position;
-	}
+	    transform.GetChild(0).eulerAngles = new Vector3(45, 0, 0);
+	    transform.GetChild(0).GetChild(0).localEulerAngles = transform.eulerAngles;
+    }
 }

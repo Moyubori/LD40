@@ -64,22 +64,18 @@ public class RoomBehaviour : MonoBehaviour
 
     IEnumerator CloseDors(GameObject d)
     {
-
         while (d.transform.GetChild(0).transform.localPosition.z >= -2f)
         {
             d.transform.GetChild(0).transform.localPosition +=new Vector3(0,0,-0.2f*Time.deltaTime);
             yield return null;
         }
-
     }
     IEnumerator OpenDors(GameObject d)
     {
-
         while (d.transform.GetChild(0).transform.localPosition.z <= 0f)
         {
             d.transform.GetChild(0).transform.localPosition += new Vector3(0, 0, +0.4f * Time.deltaTime);
             yield return null;
         }
-
     }
 }
