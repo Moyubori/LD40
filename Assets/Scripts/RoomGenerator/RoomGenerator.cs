@@ -33,7 +33,7 @@ public class RoomGenerator : MonoBehaviour
 	    _map[7, 7] = true; //settining middle
 	    _posX = _posY = 7;
 	    _rooms = new List<Room> {new Room(7, 7)};
-	    //surfaces = new List<NavMeshSurface>();
+	    surfaces = new List<NavMeshSurface>();
         GenerateMap();
 	    surfaces[0].BuildNavMesh();
     }
@@ -92,7 +92,12 @@ public class RoomGenerator : MonoBehaviour
             tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);
             var room = Instantiate(tileToSpawn, new Vector3(16*r.X, 0, 16*r.Y), tileToSpawn.transform.rotation);
             room.transform.SetParent(_mapGO.transform);
-            
+            for (int i = 0; i < room.transform.childCount; i++)
+            {
+                if(room.transform.GetChild(0).GetComponent<NavMeshSurface>()!=null)
+                surfaces.Add(room.transform.GetChild(0).GetComponent<NavMeshSurface>());
+            }
+
         }
     }
 
