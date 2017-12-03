@@ -15,7 +15,7 @@ public class AmmoCollectible : Collectible {
 	}
 
 	public override void AnimateMesh() {
-		mesh.rotation = Quaternion.Euler (new Vector3 (mesh.rotation.eulerAngles.x, mesh.rotation.eulerAngles.y + (meshRotationSpeed * Time.deltaTime), mesh.rotation.eulerAngles.z));
+		mesh.localRotation = Quaternion.Euler (new Vector3 (mesh.localRotation.eulerAngles.x, mesh.localRotation.eulerAngles.y + (meshRotationSpeed * Time.deltaTime), mesh.localRotation.eulerAngles.z));
 	}
 
 	public override void Collect() {
