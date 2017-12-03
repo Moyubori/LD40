@@ -29,15 +29,22 @@ public class PlayerProjectile : PooledObject
 
 	private bool physicsSet = false;
 
+
+
 	private void OnEnable() {
-	    timer = baseLifetime;
+
+		timer = lifetime;
+		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+	}
+
+	public override void Setup() {
+		SetupPhysics ();
+		speed = baseSpeed;
+		lifetime = baseLifetime;
+		damage = baseDamage;
 	}
 
 
-    public override void Setup()
-    {
-        SetupPhysics();
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -48,16 +55,18 @@ public class PlayerProjectile : PooledObject
     }
 
 
-    void Update() {
+  
+
+	private void Update() {
 		if (timer > 0) {
-			GetComponent<Rigidbody> ().velocity = transform.forward * speed;
 			timer -= Time.deltaTime;
 		} else {
 			Disable ();
 		}
-    }
+	}
 
-	private void SetupPhysics() {
+	public void SetupPhysics() {
+
 		if (!physicsSet) {
 			Collider playerCollider = GameObject.FindGameObjectWithTag ("Player").GetComponent<Collider> ();	
 			Physics.IgnoreCollision (playerCollider, GetComponent<Collider> ());
@@ -69,6 +78,7 @@ public class PlayerProjectile : PooledObject
 			physicsSet = true;
 		}
 	}
+
 
 
     IEnumerator LaunchProjectile()
@@ -86,5 +96,6 @@ public class PlayerProjectile : PooledObject
         damage = baseDamage;
         ReturnToPool();
     }
+
 
 }

@@ -23,6 +23,9 @@ public class ObjectPool : MonoBehaviour {
 	}
 
 	public void AddInstance(GameObject newInstance) {
+		if (prefab == null) {
+			prefab = newInstance;
+		}
 		newInstance.GetComponent<PooledObject> ().parentPool = this;
 		newInstance.transform.parent = transform;
 		newInstance.GetComponent<PooledObject> ().Setup ();
