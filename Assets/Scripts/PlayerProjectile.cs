@@ -17,16 +17,30 @@ public class PlayerProjectile : PooledObject {
 
 	private bool physicsSet = false;
 
+	private float timer;
+
 	private void OnEnable() {
-		StartCoroutine (LaunchProjectile ());
+		timer = lifetime;
+		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
 	}
 
 	public override void Setup() {
 		SetupPhysics ();
+		speed = baseSpeed;
+		lifetime = baseLifetime;
+		damage = baseDamage;
 	}
 
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.collider.tag != "Player") {
+			Disable ();
+		}
+	}
+
+	private void Update() {
+		if (timer > 0) {
+			timer -= Time.deltaTime;
+		} else {
 			Disable ();
 		}
 	}
@@ -42,12 +56,6 @@ public class PlayerProjectile : PooledObject {
 			});
 			physicsSet = true;
 		}
-	}
-
-	private IEnumerator LaunchProjectile() {
-		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
-		yield return new WaitForSeconds (lifetime);
-		Disable ();
 	}
 
 	public void Disable() {
