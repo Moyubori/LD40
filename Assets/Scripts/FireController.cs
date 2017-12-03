@@ -57,7 +57,7 @@ public class FireController : MonoBehaviour {
 	}
 
 	private void HandleInput() {
-		if (GameManager.PlayerInputAllowed) {
+		if (GameManager.Config.PlayerInputAllowed) {
 			float horizontalC = Input.GetAxis ("xFireController");
 			float verticalC = Input.GetAxis ("yFireController");
 			bool mouseMoved = (Input.GetAxis ("mouseX") != 0) || (Input.GetAxis ("mouseY") != 0);
@@ -74,7 +74,7 @@ public class FireController : MonoBehaviour {
 			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
 			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
 			//Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
-			if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked) {
+			if ((horizontalC / sinY) >= GameManager.Config.JoystickTiltFireThreshold || (verticalC / cosY) >= GameManager.Config.JoystickTiltFireThreshold || mouseClicked) {
 				Fire ();
 			}
 		}

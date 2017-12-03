@@ -552,33 +552,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114065846803021368, guid: cf24fde28121728439030249c6b68386,
-        type: 2}
-      propertyPath: projectilePool
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114065846803021368, guid: cf24fde28121728439030249c6b68386,
-        type: 2}
-      propertyPath: baseFireCooldown
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114320822247168724, guid: cf24fde28121728439030249c6b68386,
-        type: 2}
-      propertyPath: baseMovementSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4544628026516422, guid: cf24fde28121728439030249c6b68386, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4155951800828712, guid: cf24fde28121728439030249c6b68386, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1342302331094678, guid: cf24fde28121728439030249c6b68386, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf24fde28121728439030249c6b68386, type: 2}
   m_IsPrefabParent: 0

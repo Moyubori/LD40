@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 114857065461804240}
   - component: {fileID: 222619581601816084}
   - component: {fileID: 114197957690226956}
+  - component: {fileID: 114173510413210066}
+  - component: {fileID: 114562355101619320}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -240,6 +242,19 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114173510413210066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002876934112762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce86d008282c7a4ebec1e433a28cdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  applyAmmoDamageDebuff: 1
+  applyHealthFireCooldownDebuff: 1
 --- !u!114 &114197957690226956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -324,6 +339,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolPrefab: {fileID: 1897539473226132, guid: f0e04ef2d0378af4ca9f9bc341709502, type: 2}
+--- !u!114 &114562355101619320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002876934112762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89bf5afb87133a4288cc4ea5ba1f06b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowPlayerInput: 1
+  joystickTiltFireThreshold: 0.9
 --- !u!114 &114857065461804240
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,7 +18,7 @@ public class MovementController : MonoBehaviour {
     }
 
 	private void HandleInput() {
-		if (GameManager.PlayerInputAllowed) {
+		if (GameManager.Config.PlayerInputAllowed) {
 			float horizontal = Mathf.Clamp(Input.GetAxis("xMovementController") + Input.GetAxis("xMovementKeyboard"), -1, 1);
 			float vertical = Mathf.Clamp(Input.GetAxis("yMovementController") + Input.GetAxis("yMovementKeyboard"), -1, 1);
 			GetComponent<Rigidbody>().velocity = new Vector3(horizontal * baseMovementSpeed * movementSpeedModifier, 0, vertical * baseMovementSpeed * movementSpeedModifier);

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ConfigManager))]
+[RequireComponent(typeof(DebuffManager))]
 public class GameManager : MonoBehaviour {
 
 	private static GameManager instance;
 
 	private Player player;
+	private ConfigManager config;
+	private DebuffManager debuff;
 
 	[SerializeField]
 	private GameObject poolPrefab;
@@ -16,15 +20,17 @@ public class GameManager : MonoBehaviour {
 			return instance.player;
 		}
 	}
-
-	private bool allowPlayerInput = true;
-
-	public static bool PlayerInputAllowed {
+	public static ConfigManager Config {
 		get {
-			return instance.allowPlayerInput;
+			return instance.config;
 		}
 	}
-
+	public static DebuffManager Debuff {
+		get { 
+			return instance.debuff;
+		}
+	}
+		
 	private void Awake () {
 		if (instance == null) {
 			instance = this;
@@ -36,6 +42,8 @@ public class GameManager : MonoBehaviour {
 
 	private void Start() {
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+		config = GetComponent<ConfigManager> ();
+		debuff = GetComponent<DebuffManager> ();
 	}
 
 	public static ObjectPool GetObjectPool(string poolName) {
@@ -54,7 +62,7 @@ public class GameManager : MonoBehaviour {
 
 	public static void GameOver () {
 		Debug.Log ("Game Over!");
-		instance.allowPlayerInput = false;
+		instance.config.PlayerInputAllowed = false;
 	}
 		
 }

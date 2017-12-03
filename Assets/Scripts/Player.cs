@@ -44,8 +44,12 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Update() {
-		UpdateDamageModifier ();
-		UpdateFireCooldownModifier ();
+		if (GameManager.Debuff.AmmoDamageDebuffActive) {
+			UpdateDamageModifier ();
+		}
+		if (GameManager.Debuff.HealthFireCooldownDebuffActive) {
+			UpdateFireCooldownModifier ();
+		}
 	}
 		
 	private void OnTriggerEnter(Collider collider) {
@@ -55,7 +59,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetMovementSpeedModifier(float modifier) { // permanently modifies movement speed
-		movementController.movementSpeedModifier *= modifier;
+		movementController.movementSpeedModifier = modifier;
 	}
 
 	public void SetMovementSpeedModifier(float modifier, float time) { // modifies movement speed for a given time
@@ -63,9 +67,10 @@ public class Player : MonoBehaviour {
 	}
 
 	private IEnumerator TimedMovementSpeedModifier(float modifier, float time) {
-		movementController.movementSpeedModifier *= modifier;
+		float prevModifier = movementController.movementSpeedModifier;
+		movementController.movementSpeedModifier = modifier;
 		yield return new WaitForSeconds (time);
-		movementController.movementSpeedModifier /= modifier;
+		movementController.movementSpeedModifier = prevModifier;
 	}
 
 	public float GetCurrentMovementSpeed() {
@@ -98,7 +103,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetProjectileDamageModifier(float modifier) { // permanently modifies projectile damage
-		fireController.playerProjectileDamageMofidier *= modifier;
+		fireController.playerProjectileDamageMofidier = modifier;
 	}
 
 	public void SetProjectileDamageModifier(float modifier, float time) { // modifies prtojectile damage for a given time
@@ -107,9 +112,10 @@ public class Player : MonoBehaviour {
 
 	private IEnumerator TimedProjectileDamageModifier(float modifier, float time) {
 		overrideDamageModifier = true;
-		fireController.playerProjectileDamageMofidier *= modifier;
+		float prevModifier = fireController.playerProjectileDamageMofidier;
+		fireController.playerProjectileDamageMofidier = modifier;
 		yield return new WaitForSeconds (time);
-		fireController.playerProjectileDamageMofidier /= modifier;
+		fireController.playerProjectileDamageMofidier = prevModifier;
 		overrideDamageModifier = false;
 	}
 
