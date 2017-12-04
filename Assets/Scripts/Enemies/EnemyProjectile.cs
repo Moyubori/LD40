@@ -35,10 +35,9 @@ public class EnemyProjectile : PooledObject
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Player")
-        {
+       
             Disable();
-        }
+        
     }
 
     
