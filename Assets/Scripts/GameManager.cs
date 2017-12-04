@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
-		DontDestroyOnLoad (gameObject);
+	    Time.timeScale = 1;
+	    //DontDestroyOnLoad (gameObject);
 	}
 
 	private void Start() {

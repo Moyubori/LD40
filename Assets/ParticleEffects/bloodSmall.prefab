@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac3f395f2744d54f9174d7ceaa134a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifeTime: 1
+  _lifeTime: 0.3
 --- !u!198 &198775120669079890
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2390,7 +2390,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 3
     type: 1
     collisionMode: 0

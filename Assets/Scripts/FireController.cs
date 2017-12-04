@@ -144,9 +144,9 @@ public class FireController : MonoBehaviour {
 			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
 		    instance.InheritedVelocity = new Vector3();
 			instance.gameObject.SetActive (true);
-            instance.gameObject.transform.localScale= new Vector3(1,1,1)+new Vector3(playerProjectileDamage * playerProjectileDamageMofidier/playerProjectileDamage,
+            instance.gameObject.transform.localScale= new Vector3(1.5f,1.5f,1.5f)+new Vector3(playerProjectileDamage * playerProjectileDamageMofidier/playerProjectileDamage,
                 playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage,
-                playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage);
+                playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage)/2;
 			fireCooldownCounter = fireCooldown;
 			player.DecreaseAmmo();
             

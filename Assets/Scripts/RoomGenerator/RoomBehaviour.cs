@@ -84,7 +84,7 @@ public class RoomBehaviour : MonoBehaviour
     {
         while (d.transform.GetChild(0).transform.localPosition.z >= -2f)
         {
-            d.transform.GetChild(0).transform.localPosition +=new Vector3(0,0,-0.9f*Time.deltaTime);
+            d.transform.GetChild(0).transform.localPosition +=new Vector3(0,0,-3f*Time.deltaTime);
             yield return null;
         }
     }

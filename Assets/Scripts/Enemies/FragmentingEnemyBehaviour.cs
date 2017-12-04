@@ -33,7 +33,7 @@ public class FragmentingEnemyBehaviour : EnemyBehaviour {
 	            obj.GetComponent<FragmentingEnemyBehaviour>().FullHealth = Health;
 	            obj.GetComponent<FragmentingEnemyBehaviour>().Stage=Stage+1;
 	            
-                obj.GetComponent<BoxCollider>().size =new Vector3(obj.GetComponent<BoxCollider>().size.x,obj.GetComponent<BoxCollider>().size.y*2,obj.GetComponent<BoxCollider>().size.z); 
+                obj.GetComponent<BoxCollider>().size =new Vector3(obj.GetComponent<BoxCollider>().size.x,obj.GetComponent<BoxCollider>().size.y*1.5f,obj.GetComponent<BoxCollider>().size.z); 
 	        }
             Destroy(this.gameObject);
 	    }
