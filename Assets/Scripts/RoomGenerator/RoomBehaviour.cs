@@ -9,13 +9,17 @@ public class RoomBehaviour : MonoBehaviour
 
     [SerializeField] private GameObject _player,_roof;
 	// Use this for initialization
-	void Start () {
-	    foreach (var e in _enemies)
+    void Start()
+    {
+        MoveChildrenToLayer(transform,4);
+    //gameObject.layer = 4;
+    foreach (var e in _enemies)
 	    {
 	        e.SetActive(false);
 	    }
 		_player = GameObject.Find("Player");
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,7 +28,11 @@ public class RoomBehaviour : MonoBehaviour
 	        _player.transform.position.z < transform.position.z + 5.5 &&
 	        _player.transform.position.z > transform.position.z - 5.5)
 	    {
-	        if (_enemies.Count > 0)
+	        if (gameObject.layer != 1)
+	        {
+	            MoveChildrenToLayer(transform,1);
+	        }
+            if (_enemies.Count > 0)
 	        {
 	            foreach (var d in _doors)
 	            {
@@ -61,6 +69,15 @@ public class RoomBehaviour : MonoBehaviour
 	        }
 	    }
 	}
+
+    public void MoveChildrenToLayer(Transform trans,int layer)
+    {
+        for (int i = 0; i < trans.childCount; i++)
+        {
+           MoveChildrenToLayer( trans.GetChild(i),layer);
+        }
+        trans.gameObject.layer =layer;
+    }
 
     IEnumerator CloseDors(GameObject d)
     {
