@@ -94,6 +94,10 @@ public class RoomGenerator : MonoBehaviour
             }
             tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);
             var room = Instantiate(tileToSpawn, new Vector3(12*r.X, 0, 12*r.Y), tileToSpawn.transform.rotation);
+            if (r.X == 7 && r.Y == 7)
+            {
+                room.GetComponent<RoomBehaviour>().RemoveEnemies();
+            }
             room.transform.SetParent(_mapGO.transform);
             for (int i = 0; i < room.transform.childCount; i++)
             {

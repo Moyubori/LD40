@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -94,5 +95,14 @@ public class RoomBehaviour : MonoBehaviour
             d.transform.GetChild(0).transform.localPosition += new Vector3(0, 0, +0.4f * Time.deltaTime);
             yield return null;
         }
+    }
+
+    public void RemoveEnemies()
+    {
+        foreach (var e in _enemies)
+        {
+            Destroy(e.gameObject);
+        }
+        _enemies = new List<GameObject>();
     }
 }

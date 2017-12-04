@@ -142,7 +142,7 @@ public class FireController : MonoBehaviour {
 			instance.transform.rotation = transform.rotation;
 			instance.damage = playerProjectileDamage * playerProjectileDamageMofidier;
 			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
-		    instance.InheritedVelocity = GetComponent<Rigidbody>().velocity;
+		    instance.InheritedVelocity = new Vector3();
 			instance.gameObject.SetActive (true);
             instance.gameObject.transform.localScale= new Vector3(1,1,1)+new Vector3(playerProjectileDamage * playerProjectileDamageMofidier/playerProjectileDamage,
                 playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage,
