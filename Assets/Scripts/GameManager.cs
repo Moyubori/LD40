@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour {
 
 	private Player player;
 
+	[SerializeField]
+	private GameObject poolPrefab;
+
 	public static Player Player {
 		get {
 			return instance.player;
@@ -28,7 +31,8 @@ public class GameManager : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
-		DontDestroyOnLoad (gameObject);
+	    Time.timeScale = 1;
+	    //DontDestroyOnLoad (gameObject);
 	}
 
 	private void Start() {
@@ -36,7 +40,17 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public static ObjectPool GetObjectPool(string poolName) {
-		return instance.transform.Find (poolName).GetComponent<ObjectPool> ();
+		Transform pool = instance.transform.Find (poolName);
+		if (pool == null) {
+			pool = instance.CreateNewPool (poolName).transform;
+		}
+		return pool.GetComponent<ObjectPool> ();
+	}
+
+	private GameObject CreateNewPool(string name) {
+		GameObject newPool = Instantiate (poolPrefab, transform);
+		newPool.name = name;
+		return newPool;
 	}
 
 	public static void GameOver () {

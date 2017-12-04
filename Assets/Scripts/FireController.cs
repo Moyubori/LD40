@@ -24,9 +24,12 @@ public class FireController : MonoBehaviour {
 		}
 	}
 
+    [SerializeField] private GameObject representation;
 	[SerializeField]
 	private float playerProjectileSpeed = 10f;
 	public float playerProjectileSpeedModifier = 1f;
+
+    public bool Firing;
 	public float ProjectileSpeed {
 		get {
 			return playerProjectileSpeed * playerProjectileSpeedModifier;
@@ -43,8 +46,9 @@ public class FireController : MonoBehaviour {
 
 	private void Start() {
 		if (projectilePool == null) {
-			Debug.LogError ("PlayerProjectile object pool not set.");
+			projectilePool = GameManager.GetObjectPool ("PlayerProjectilePool");
 		}
+	    representation = GameObject.Find("Pivot");
 	}
 
 	private void Update () {
@@ -65,20 +69,47 @@ public class FireController : MonoBehaviour {
 			float angle = prevAngle;
 			if (mouseMoved || mouseClicked) {
 				angle = AngleToMousePos ();
-			} else if ((horizontalC != 0) || (verticalC != 0)) {
-				angle = AngleToControllerInput (horizontalC, verticalC);
+			} else if ((horizontalC != 0) || (verticalC != 0))
+			{
+			    angle = AngleToControllerInput(horizontalC, verticalC);
+			}
+			else if(PadMoved())
+			{
+			    angle = AngleToControllerInput(Input.GetAxis("xMovementController"), Input.GetAxis("yMovementController"));
 			}
 			prevAngle = angle;
 			Rotate (angle);
 
 			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
 			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
-			//Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
-			if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked) {
-				Fire ();
-			}
+			Debug.Log ((horizontalC) + " " + (verticalC ));
+		    if ((horizontalC / sinY) >= 0.8f || (verticalC / cosY) >= 0.8f || mouseClicked)
+		    {
+		        Fire();
+		        
+		    }
+		    else
+		    {
+		        Firing = false;
+		    }
 		}
 	}
+
+    private float xAx, yAx, yyAx, xxAx;
+    private bool PadMoved()
+    {
+        bool ret;
+        ret = false;
+        if (xAx != Input.GetAxis("xFireController")) ret =  true;
+        if (yAx != Input.GetAxis("yFireController")) ret = true;
+        if (xxAx != Input.GetAxis("xMovementController")) ret = true;
+        if (yyAx != Input.GetAxis("yMovementController")) ret = true;
+        xAx = Input.GetAxis("xFireController");
+        yAx = Input.GetAxis("yFireController");
+        xxAx = Input.GetAxis("xMovementController");
+        yyAx = Input.GetAxis("yMovementController");
+        return ret;
+    }
 
 	private float AngleToMousePos() {
 		Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -98,20 +129,33 @@ public class FireController : MonoBehaviour {
 
 	private void Rotate(float angle) {
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, angle + rotationOffset, transform.rotation.eulerAngles.z);
-	}
+	    representation.transform.position = transform.position;
+       representation.transform.GetChild(0).localRotation = Quaternion.Euler(representation.transform.GetChild(0).localRotation.eulerAngles.x, angle + rotationOffset, representation.transform.GetChild(0).localRotation.eulerAngles.z);
+    }
 				
 	private void Fire() {
 		Player player = GetComponent<Player> ();
 		if (Mathf.Approximately(fireCooldownCounter, 0f) && player.Ammo > 0) {
-			PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
+		    Firing = true;
+            PlayerProjectile instance = projectilePool.GetInstance().GetComponent<PlayerProjectile>();
 			instance.transform.position = new Vector3 (transform.position.x, instance.transform.position.y, transform.position.z);
 			instance.transform.rotation = transform.rotation;
 			instance.damage = playerProjectileDamage * playerProjectileDamageMofidier;
 			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
+		    instance.InheritedVelocity = new Vector3();
 			instance.gameObject.SetActive (true);
+            instance.gameObject.transform.localScale= new Vector3(1.5f,1.5f,1.5f)+new Vector3(playerProjectileDamage * playerProjectileDamageMofidier/playerProjectileDamage,
+                playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage,
+                playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage)/2;
 			fireCooldownCounter = fireCooldown;
 			player.DecreaseAmmo();
+            
 		}
+        else if (player.Ammo <= 0)
+	    {
+
+	        Firing = false;
+	    }
 	}
 
 }
