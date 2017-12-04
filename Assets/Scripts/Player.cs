@@ -3,6 +3,7 @@ using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
     using UnityEngine.PostProcessing;
+    using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour {
 	private FireController fireController;
 
     [SerializeField] private PostProcessingProfile profile;
+    [SerializeField] private Slider ExpBar;
     public GUISkin skin;
     public GameObject Life,AmmoContainer;
     public GameObject AmmoSprite;
@@ -295,6 +297,7 @@ public class Player : MonoBehaviour {
             StartCoroutine(ShowLevelUpMessage());
             experience = 0;
         }
+        ExpBar.value = experience / 100f;
     }
 
     private IEnumerator ShowLevelUpMessage()

@@ -19,7 +19,7 @@ public class FollowingEnemyBehaviour : EnemyBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	    
+	    if(Vector3.Distance(_player.transform.position,transform.position)>1f)
 	    GetComponent<NavMeshAgent>().destination =_player.transform.position;
 	    transform.GetChild(0).eulerAngles = new Vector3(45, 0, 0);
 	    transform.GetChild(0).GetChild(0).localEulerAngles = transform.eulerAngles;
