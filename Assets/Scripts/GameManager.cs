@@ -11,6 +11,16 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	private GameObject poolPrefab;
 
+	public GameObject gameOverScreen;
+	public GameObject inGameUI;
+
+	private bool gameOver = false;
+	public static bool IsGameOver {
+		get { 
+			return instance.gameOver;
+		}
+	}
+
 	public static Player Player {
 		get {
 			return instance.player;
@@ -31,8 +41,11 @@ public class GameManager : MonoBehaviour {
 		} else if (instance != this) {
 			Destroy (gameObject);
 		}
+<<<<<<< HEAD
 	    Time.timeScale = 1;
 	    //DontDestroyOnLoad (gameObject);
+=======
+>>>>>>> origin/improvements
 	}
 
 	private void Start() {
@@ -55,7 +68,11 @@ public class GameManager : MonoBehaviour {
 
 	public static void GameOver () {
 		Debug.Log ("Game Over!");
+		instance.gameOver = true;
 		instance.allowPlayerInput = false;
+		instance.inGameUI.SetActive (false);
+		instance.gameOverScreen.SetActive (true);
+		instance.player.GetComponent<Rigidbody> ().isKinematic = true;
 	}
 		
 }

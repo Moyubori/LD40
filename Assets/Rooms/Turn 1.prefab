@@ -777,6 +777,7 @@ Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:Assets/Rooms/Turn 1.prefab
   m_GameObject: {fileID: 1749996287470876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 8, z: 0}
@@ -784,6 +785,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4262555247944654}
   m_RootOrder: 4
+=======
+  m_GameObject: {fileID: 1947080161539306}
+  m_LocalRotation: {x: 0, y: -0.00000008742278, z: 0, w: -1}
+  m_LocalPosition: {x: -11.339962, y: 1.5592594, z: -3.419564}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_Children:
+  - {fileID: 4842722167352306}
+  - {fileID: 4869286632352338}
+  - {fileID: 4975484837642706}
+  - {fileID: 4925759847440524}
+  - {fileID: 4699087262778670}
+  - {fileID: 4901744318742566}
+  - {fileID: 4725761414252930}
+  - {fileID: 4647924678493260}
+  - {fileID: 4086356012477482}
+  - {fileID: 4895449423280280}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+>>>>>>> origin/improvements:Assets/Rooms/End 2.prefab
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4464039669615266
 Transform:
@@ -1882,8 +1902,13 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:Assets/Rooms/Turn 1.prefab
   m_GameObject: {fileID: 1320140205793844}
   m_Material: {fileID: 0}
+=======
+  m_GameObject: {fileID: 1312488264915256}
+  m_Material: {fileID: 13400000, guid: 6f509b6d9bc088b48844d0f11be5ccc7, type: 2}
+>>>>>>> origin/improvements:Assets/Rooms/End 2.prefab
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1894,8 +1919,13 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:Assets/Rooms/Turn 1.prefab
   m_GameObject: {fileID: 1453562688841320}
   m_Material: {fileID: 0}
+=======
+  m_GameObject: {fileID: 1610924100628792}
+  m_Material: {fileID: 13400000, guid: 6f509b6d9bc088b48844d0f11be5ccc7, type: 2}
+>>>>>>> origin/improvements:Assets/Rooms/End 2.prefab
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1906,8 +1936,13 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:Assets/Rooms/Turn 1.prefab
   m_GameObject: {fileID: 1620219853956504}
   m_Material: {fileID: 0}
+=======
+  m_GameObject: {fileID: 1218196984615478}
+  m_Material: {fileID: 13400000, guid: 6f509b6d9bc088b48844d0f11be5ccc7, type: 2}
+>>>>>>> origin/improvements:Assets/Rooms/End 2.prefab
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1918,8 +1953,13 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:Assets/Rooms/Turn 1.prefab
   m_GameObject: {fileID: 1433136846130402}
   m_Material: {fileID: 0}
+=======
+  m_GameObject: {fileID: 1307516399078718}
+  m_Material: {fileID: 13400000, guid: 6f509b6d9bc088b48844d0f11be5ccc7, type: 2}
+>>>>>>> origin/improvements:Assets/Rooms/End 2.prefab
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1930,8 +1970,13 @@ BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:Assets/Rooms/Turn 1.prefab
   m_GameObject: {fileID: 1308698259187114}
   m_Material: {fileID: 0}
+=======
+  m_GameObject: {fileID: 1544543703386124}
+  m_Material: {fileID: 13400000, guid: 6f509b6d9bc088b48844d0f11be5ccc7, type: 2}
+>>>>>>> origin/improvements:Assets/Rooms/End 2.prefab
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
