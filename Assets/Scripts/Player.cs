@@ -204,12 +204,12 @@ public class Player : MonoBehaviour {
     {
         if (col.gameObject.tag == "Enemy" )
         {
-            health -= col.gameObject.GetComponent<EnemyBehaviour>().Damage;
+			DecreaseHealth(col.gameObject.GetComponent<EnemyBehaviour>().Damage);
             GetComponent<CameraShake>().ShakeDuration = 0.1f;
         }
         else if (col.gameObject.tag == "EnemyProjectile")
         {
-            health -= col.gameObject.GetComponent<EnemyProjectile>().damage;
+			DecreaseHealth(col.gameObject.GetComponent<EnemyProjectile>().damage);
             GetComponent<CameraShake>().ShakeDuration = 0.1f;
         }
         Life.GetComponent<RectTransform>().sizeDelta =new Vector2( 140 * health / baseHealth,16);
@@ -247,7 +247,7 @@ public class Player : MonoBehaviour {
 
 	public void DecreaseHealth(float amount) {
 		health = Mathf.Clamp (health - amount, 0f, baseHealth);
-		if (health == 0) {
+		if (health <= 0 && !GameManager.IsGameOver) {
 			GameManager.GameOver ();
 		}
 	}
