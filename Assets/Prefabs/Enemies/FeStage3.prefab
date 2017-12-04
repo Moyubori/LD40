@@ -128,7 +128,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1610017443897542}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.40668, y: -1.4406638, z: 3.5075102}
+  m_LocalPosition: {x: 93.56564, y: 11.890978, z: 148.93675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4884030072016734}
@@ -142,8 +142,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551761355363450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3535534, z: 0.35355338}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4670510742334174}
   - {fileID: 4806003888357186}
@@ -276,6 +276,8 @@ MonoBehaviour:
   - {fileID: 1585898885762952, guid: 2e39aab9aa63d5243a655ad4e017e180, type: 2}
   - {fileID: 1105299771952570, guid: 65b54f214c237664eb90c635c126beb5, type: 2}
   - {fileID: 1188175320350774, guid: 0c9c81e61eca81545b9463d929fbe84e, type: 2}
+  _medKit: {fileID: 1500502897011168, guid: 656446c27952fe0428c79be9769723ec, type: 2}
+  BaseHealth: 0
   Stage: 0
   _forms:
   - {fileID: 1989446504973962, guid: 48adcf31d57c9984aa86493f4120e6fe, type: 2}

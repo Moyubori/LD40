@@ -69,16 +69,21 @@ public class FireController : MonoBehaviour {
 			float angle = prevAngle;
 			if (mouseMoved || mouseClicked) {
 				angle = AngleToMousePos ();
-			} else if ((horizontalC != 0) || (verticalC != 0)) {
-				angle = AngleToControllerInput (horizontalC, verticalC);
+			} else if ((horizontalC != 0) || (verticalC != 0))
+			{
+			    angle = AngleToControllerInput(horizontalC, verticalC);
+			}
+			else if(PadMoved())
+			{
+			    angle = AngleToControllerInput(Input.GetAxis("xMovementController"), Input.GetAxis("yMovementController"));
 			}
 			prevAngle = angle;
 			Rotate (angle);
 
-			float sinY = Mathf.Sin (transform.localRotation.eulerAngles.y * Mathf.Deg2Rad);
-			float cosY = Mathf.Cos(transform.localRotation.eulerAngles.y * Mathf.Deg2Rad);
-			//Debug.Log ((horizontalC / sinY) + " " + (verticalC / cosY));
-		    if ((horizontalC / sinY) >= 0.9f || (verticalC / cosY) >= 0.9f || mouseClicked)
+			float sinY = Mathf.Sin (transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
+			float cosY = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
+			Debug.Log ((horizontalC) + " " + (verticalC ));
+		    if ((horizontalC / sinY) >= 0.8f || (verticalC / cosY) >= 0.8f || mouseClicked)
 		    {
 		        Fire();
 		        
@@ -89,6 +94,22 @@ public class FireController : MonoBehaviour {
 		    }
 		}
 	}
+
+    private float xAx, yAx, yyAx, xxAx;
+    private bool PadMoved()
+    {
+        bool ret;
+        ret = false;
+        if (xAx != Input.GetAxis("xFireController")) ret =  true;
+        if (yAx != Input.GetAxis("yFireController")) ret = true;
+        if (xxAx != Input.GetAxis("xMovementController")) ret = true;
+        if (yyAx != Input.GetAxis("yMovementController")) ret = true;
+        xAx = Input.GetAxis("xFireController");
+        yAx = Input.GetAxis("yFireController");
+        xxAx = Input.GetAxis("xMovementController");
+        yyAx = Input.GetAxis("yMovementController");
+        return ret;
+    }
 
 	private float AngleToMousePos() {
 		Vector3 inputPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -121,6 +142,7 @@ public class FireController : MonoBehaviour {
 			instance.transform.rotation = transform.rotation;
 			instance.damage = playerProjectileDamage * playerProjectileDamageMofidier;
 			instance.speed = playerProjectileSpeed * playerProjectileSpeedModifier;
+		    instance.InheritedVelocity = GetComponent<Rigidbody>().velocity;
 			instance.gameObject.SetActive (true);
             instance.gameObject.transform.localScale= new Vector3(1,1,1)+new Vector3(playerProjectileDamage * playerProjectileDamageMofidier/playerProjectileDamage,
                 playerProjectileDamage * playerProjectileDamageMofidier / playerProjectileDamage,

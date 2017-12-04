@@ -14,6 +14,7 @@ public class FragmentingEnemyBehaviour : EnemyBehaviour {
         _fullHealth = Health = 100;
         Damage = 5;
         _player = GameObject.Find("Player");
+        Exp = 5;
     }
 	
 	// Update is called once per frame
@@ -22,7 +23,7 @@ public class FragmentingEnemyBehaviour : EnemyBehaviour {
 	    GetComponent<NavMeshAgent>().destination=(_player.transform.position);
 	    transform.GetChild(0).eulerAngles = new Vector3(45,0,0);
 	    transform.GetChild(0).GetChild(0).localEulerAngles = transform.eulerAngles;
-        if (Stage<2 &&Health / _fullHealth<=0.75f)
+        if (Stage<2 &&Health / _fullHealth<=0.5f)
 	    {
 	        for (int i = 0; i < 2; i++)
 	        {

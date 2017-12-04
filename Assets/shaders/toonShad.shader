@@ -2,11 +2,11 @@
 
 Shader "CelShading" {
     Properties{
-        _Color("Color", Color) = (1, 1, 1, 1)
+        _Color("Color", Color) = (1, 1, 1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {
             }
 		
-		_Dim("Dim", Color) = (0.5,0.5,0.5)
+		_Dim("Dim", Color) = (1,1,1)
 		_MaxBrightness("Top",Float) = 1
 		_Attenuation("Lit",Range(0,1.0)) = 0.8
 			_Attenuation2("Lit2",Range(0,1.0)) = 0.6

@@ -751,7 +751,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601113351257174}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 675a210721fffbb4eadb2e0ebb7ad2e0, type: 3}
 --- !u!65 &65537379140571238
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -798,6 +798,8 @@ MonoBehaviour:
   - {fileID: 1585898885762952, guid: 2e39aab9aa63d5243a655ad4e017e180, type: 2}
   - {fileID: 1105299771952570, guid: 65b54f214c237664eb90c635c126beb5, type: 2}
   - {fileID: 1188175320350774, guid: 0c9c81e61eca81545b9463d929fbe84e, type: 2}
+  _medKit: {fileID: 1500502897011168, guid: 656446c27952fe0428c79be9769723ec, type: 2}
+  BaseHealth: 0
   _projectilePool: {fileID: 0}
   _range: 0
 --- !u!137 &137875951563071066

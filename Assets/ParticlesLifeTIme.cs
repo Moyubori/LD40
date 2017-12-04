@@ -5,6 +5,8 @@ using UnityEngine;
 public class ParticlesLifeTIme : MonoBehaviour
 {
     private float _time=0;
+
+    [SerializeField] private float _lifeTime;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,7 +16,7 @@ public class ParticlesLifeTIme : MonoBehaviour
 	void Update ()
 	{
 	    _time += Time.deltaTime;
-	    if (_time > 3)
+	    if (_time > _lifeTime)
 	    {
 	        Destroy(this.gameObject);
 	    }

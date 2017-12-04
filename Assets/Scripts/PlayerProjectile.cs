@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 
 public class PlayerProjectile : PooledObject
 {
-
+    public GameObject Particles,BloodSmall;
     [SerializeField]
     private float baseSpeed = 10f;
     [SerializeField]
@@ -12,6 +13,7 @@ public class PlayerProjectile : PooledObject
     [SerializeField]
     private float baseDamage = 10f;
 
+    public Vector3 InheritedVelocity;
 
     public float speed;
     public float lifetime;
@@ -32,9 +34,12 @@ public class PlayerProjectile : PooledObject
 
 
 	private void OnEnable() {
-
-		timer = lifetime;
-		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+	    foreach (var pooledObject in GameObject.FindGameObjectsWithTag("EnemyProjectile"))
+	    {
+	        Physics.IgnoreCollision(pooledObject.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+	    }
+        timer = lifetime;
+		GetComponent<Rigidbody> ().velocity =InheritedVelocity+ transform.forward * speed;
 	}
 
 	public override void Setup() {
@@ -50,8 +55,17 @@ public class PlayerProjectile : PooledObject
     {
         if (collision.collider.tag != "Player")
         {
+            if (collision.collider.tag == "Enemy")
+            {
+                Instantiate(BloodSmall, transform.position, new Quaternion());
+            }
+            else
+            {
+                Instantiate(Particles, transform.position, new Quaternion());
+            }
             Disable();
         }
+       
     }
 
 
@@ -75,7 +89,7 @@ public class PlayerProjectile : PooledObject
 				Collider collider = projectile.GetComponent<Collider> ();
 				Physics.IgnoreCollision (collider, GetComponent<Collider> ());
 			});
-            foreach (var pooledObject in GameObject.FindObjectsOfType<PooledObject>())
+            foreach (var pooledObject in GameObject.FindGameObjectsWithTag("EnemyProjectile"))
 		    {
 		        Physics.IgnoreCollision(pooledObject.gameObject.GetComponent<Collider>(),GetComponent<Collider>());
 		    }
@@ -94,6 +108,7 @@ public class PlayerProjectile : PooledObject
 
     void Disable()
     {
+        
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         speed = baseSpeed;
         lifetime = baseLifetime;

@@ -1,6 +1,8 @@
 ﻿    using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+    using System.Linq;
+    using UnityEngine;
+    using UnityEngine.PostProcessing;
 
 public class Player : MonoBehaviour {
 
@@ -9,6 +11,11 @@ public class Player : MonoBehaviour {
 	[SerializeField]
 	private FireController fireController;
 
+    [SerializeField] private PostProcessingProfile profile;
+    public GUISkin skin;
+    public GameObject Life,AmmoContainer;
+    public GameObject AmmoSprite;
+    public List<GameObject> AmmoList;
 	[SerializeField]
 	private int ammo = 0;
 	public int Ammo {
@@ -23,6 +30,10 @@ public class Player : MonoBehaviour {
 	private float baseHealth = 100f;
 	[SerializeField]
 	private float health = 100f;
+
+    private float damageTimer=0;
+    [SerializeField]
+    private int experience;
 	public float Health {
 		get { 
 			return health;
@@ -46,6 +57,31 @@ public class Player : MonoBehaviour {
 	private void Update() {
 		UpdateDamageModifier ();
 		UpdateFireCooldownModifier ();
+	    damageTimer += Time.deltaTime;
+	    while (Ammo != AmmoList.Count)
+	    {
+	        if (Ammo < AmmoList.Count)
+	        {
+	            var a = AmmoList.Last();
+
+                AmmoList.Remove(a);
+                Destroy(a);
+	        }
+	        else
+	        {
+	            var am = Instantiate(AmmoSprite);
+                am.transform.SetParent(AmmoContainer.transform);
+	            if (AmmoList.Count > 0)
+	                am.GetComponent<RectTransform>().anchoredPosition =
+	                    AmmoList.Last().GetComponent<RectTransform>().anchoredPosition + new Vector2(0, -5);
+	            else
+	            {
+	                am.GetComponent<RectTransform>().anchoredPosition =
+	                    AmmoSprite.GetComponent<RectTransform>().anchoredPosition;
+	            }
+                AmmoList.Add(am);
+	        }
+	    }
 	}
 		
 	private void OnTriggerEnter(Collider collider) {
@@ -137,15 +173,43 @@ public class Player : MonoBehaviour {
         if (col.gameObject.tag == "Enemy" )
         {
             health -= col.gameObject.GetComponent<EnemyBehaviour>().Damage;
+            GetComponent<CameraShake>().ShakeDuration = 0.1f;
+        }
+        else if (col.gameObject.tag == "EnemyProjectile")
+        {
+            health -= col.gameObject.GetComponent<EnemyProjectile>().damage;
+            GetComponent<CameraShake>().ShakeDuration = 0.1f;
+        }
+        Life.GetComponent<RectTransform>().sizeDelta =new Vector2( 140 * health / baseHealth,16);
+        ChromaticAberrationModel.Settings effectSettings = profile.chromaticAberration.settings;
+        effectSettings.intensity = (1 - health / baseHealth)*2;
+        
+        profile.chromaticAberration.enabled = true;
+        profile.chromaticAberration.settings=effectSettings;
+        damageTimer = 0;
+       
+    }
+
+    private IEnumerator HitIndicator()
+    {
+        yield return null;
+    }
+    private void OnCollisionStay(Collision col)
+    {
+        if (damageTimer < 0.4f) return;
+        if (col.gameObject.tag == "Enemy")
+        {
+            health -= col.gameObject.GetComponent<EnemyBehaviour>().Damage;
         }
         else if (col.gameObject.tag == "EnemyProjectile")
         {
             health -= col.gameObject.GetComponent<EnemyProjectile>().damage;
         }
-        Debug.Log(health);
+        Life.GetComponent<RectTransform>().sizeDelta = new Vector2(140 * health / baseHealth, 16);
+        damageTimer = 0;
     }
 
-	public float GetCurrentProjectileLifetime() {
+    public float GetCurrentProjectileLifetime() {
 		return fireController.playerProjectileLifetime;
 	}
 
@@ -186,10 +250,40 @@ public class Player : MonoBehaviour {
 
 	public void UpdateFireCooldownModifier() {
 		if(!overriderFireCooldown) {
-			float fireCooldown = Mathf.Clamp (0.5f * health / baseHealth, 0.1f, 0.5f);
+			float fireCooldown = Mathf.Clamp (0.2f * health / baseHealth, 0.1f, 0.5f);
 			SetFireCooldown (fireCooldown);
 		}
 	}
+
+    public void AddExperience(int exp)
+    {
+        experience += exp;
+        if (experience >= 100)
+        {
+            StartCoroutine(ShowLevelUpMessage());
+            experience = 0;
+        }
+    }
+
+    private IEnumerator ShowLevelUpMessage()
+    {
+        LeveledUp = true;
+        yield return new WaitForSeconds(1.5f);
+        LeveledUp = false;
+    }
+
+    void OnGUI()
+    {
+        if (LeveledUp)
+        {
+            
+                    GUI.Box(new Rect(Screen.width / 2, Screen.height / 2 - 30, 300, 200), "Level UP!", skin.GetStyle("EquipmentInfo"));
+                   
+                
+        }
+    }
+
+    public bool LeveledUp { get; set; }
 
     public FireController FireController
     {

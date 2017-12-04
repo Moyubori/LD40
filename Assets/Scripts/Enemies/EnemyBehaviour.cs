@@ -9,7 +9,13 @@ public class EnemyBehaviour : MonoBehaviour {
     [SerializeField] private float _damage;
 
     [SerializeField] private List<GameObject> _ammoBoxes;
+    [SerializeField] private GameObject _medKit;
+    public float BaseHealth;
     // Use this for initialization
+    void OnEnable()
+    {
+        BaseHealth = Health;
+    }
     void Start () {
 		
 	}
@@ -20,7 +26,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	   
 	}
     public float Health { get; set; }
-
+    public int Exp { get; set; }
     public float Damage
     {
         get { return _damage; }
@@ -44,15 +50,23 @@ public class EnemyBehaviour : MonoBehaviour {
         {
             Instantiate(_particles, transform.position, transform.rotation);
             DropAmmo();
+            GameObject.Find("Player").GetComponent<Player>().AddExperience(Exp);
             Destroy(this.gameObject);
         }
     }
 
     public void DropAmmo()
     {
-        if (Random.Range(0, 100) > 50)
+        if (Random.Range(0, 100) > 70)
         {
             Instantiate(_ammoBoxes[Random.Range(0, _ammoBoxes.Count)], transform.position, transform.rotation);
+            return;;
         }
+        if (Random.Range(0, 100) > 70)
+        {
+            Instantiate(_medKit, transform.position, transform.rotation);
+            return; ;
+        }
+
     }
 }

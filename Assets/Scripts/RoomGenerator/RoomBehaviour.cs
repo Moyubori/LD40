@@ -19,10 +19,10 @@ public class RoomBehaviour : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	    if (_player.transform.position.x < transform.position.x + 8 &&
-	        _player.transform.position.x > transform.position.x - 8 &&
-	        _player.transform.position.z < transform.position.z + 8 &&
-	        _player.transform.position.z > transform.position.z - 8)
+	    if (_player.transform.position.x < transform.position.x + 5.5 &&
+	        _player.transform.position.x > transform.position.x - 5.5 &&
+	        _player.transform.position.z < transform.position.z + 5.5 &&
+	        _player.transform.position.z > transform.position.z - 5.5)
 	    {
 	        if (_enemies.Count > 0)
 	        {
@@ -51,10 +51,10 @@ public class RoomBehaviour : MonoBehaviour
 	    }
 	    foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
 	    {
-	        if (!e.activeInHierarchy || !(e.transform.position.x < transform.position.x + 7) ||
-	            !(e.transform.position.x > transform.position.x - 7) ||
-	            !(e.transform.position.z < transform.position.z + 7) ||
-	            !(e.transform.position.z > transform.position.z - 7)) continue;
+	        if (!e.activeInHierarchy || !(e.transform.position.x < transform.position.x + 5) ||
+	            !(e.transform.position.x > transform.position.x - 5) ||
+	            !(e.transform.position.z < transform.position.z + 5) ||
+	            !(e.transform.position.z > transform.position.z - 5)) continue;
 	        if (!_enemies.Contains(e))
 	        {
 	            _enemies.Add(e);
@@ -66,7 +66,7 @@ public class RoomBehaviour : MonoBehaviour
     {
         while (d.transform.GetChild(0).transform.localPosition.z >= -2f)
         {
-            d.transform.GetChild(0).transform.localPosition +=new Vector3(0,0,-0.2f*Time.deltaTime);
+            d.transform.GetChild(0).transform.localPosition +=new Vector3(0,0,-0.9f*Time.deltaTime);
             yield return null;
         }
     }

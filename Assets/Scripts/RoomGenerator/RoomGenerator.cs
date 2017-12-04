@@ -36,7 +36,8 @@ public class RoomGenerator : MonoBehaviour
 	    surfaces = new List<NavMeshSurface>();
         GenerateMap();
 	    surfaces[0].BuildNavMesh();
-        _player.transform.position = new Vector3(16f*_rooms[0].X,0.5f,16f*_rooms[0].Y);
+	   
+        _player.transform.position = new Vector3(12f*_rooms[0].X,0.5f,12f*_rooms[0].Y);
         _player.GetComponent<Player>().IncreaseAmmo(100);
     }
 	
@@ -92,7 +93,7 @@ public class RoomGenerator : MonoBehaviour
                     break;
             }
             tileToSpawn.transform.eulerAngles = new Vector3(0,r.Rotation,0);
-            var room = Instantiate(tileToSpawn, new Vector3(16*r.X, 0, 16*r.Y), tileToSpawn.transform.rotation);
+            var room = Instantiate(tileToSpawn, new Vector3(12*r.X, 0, 12*r.Y), tileToSpawn.transform.rotation);
             room.transform.SetParent(_mapGO.transform);
             for (int i = 0; i < room.transform.childCount; i++)
             {

@@ -170,7 +170,7 @@ MonoBehaviour:
   objectTypeName: AmmoBig
   animateMesh: 1
   mesh: {fileID: 4520858931079318}
-  ammo: 200
+  ammo: 80
   meshRotationSpeed: 150
 --- !u!135 &135697898903837016
 SphereCollider:

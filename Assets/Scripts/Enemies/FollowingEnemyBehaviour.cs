@@ -11,8 +11,9 @@ public class FollowingEnemyBehaviour : EnemyBehaviour
 	void Start ()
 	{
 	    _player = GameObject.Find("Player");
-	    Damage = 5;
-	    Health = 100;
+	    Damage = 3;
+	    Health = 50;
+	    Exp = 5;
 	}
 	
 	// Update is called once per frame

@@ -19,6 +19,7 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
 	    Damage = 5;
 	    Health = 100;
         _player = GameObject.Find("Player");
+	    Exp = 5;
 	   _projectilePool =  GameObject.Find("EnemyProjectilePool").GetComponent<ObjectPool>();
 	}
 	
@@ -50,5 +51,6 @@ public class ShootingEnemyBehaviour : EnemyBehaviour
         instance.damage = Damage;
         instance.transform.rotation = transform.rotation;
         instance.gameObject.SetActive(true);
+        instance.transform.localScale = new Vector3(2,2,2);
     }
 }
