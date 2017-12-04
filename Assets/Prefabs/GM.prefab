@@ -337,6 +337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolPrefab: {fileID: 1897539473226132, guid: f0e04ef2d0378af4ca9f9bc341709502, type: 2}
+  gameOverScreen: {fileID: 0}
+  inGameUI: {fileID: 0}
 --- !u!114 &114877149023193568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,3 +376,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d702d4dae00e2eb45a357849b75dae67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 1482159114071388, guid: 0c9e699ca1a90864e853b55ae9749d24, type: 2}
+  instancesPooledOnStart: 0
