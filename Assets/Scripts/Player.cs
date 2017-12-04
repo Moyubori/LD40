@@ -60,6 +60,7 @@ public class Player : MonoBehaviour {
 	    damageTimer += Time.deltaTime;
 	    while (Ammo != AmmoList.Count)
 	    {
+	        float xOffset=0,yOffset;
 	        if (Ammo < AmmoList.Count)
 	        {
 	            var a = AmmoList.Last();
@@ -71,15 +72,46 @@ public class Player : MonoBehaviour {
 	        {
 	            var am = Instantiate(AmmoSprite);
                 am.transform.SetParent(AmmoContainer.transform);
+
 	            if (AmmoList.Count > 0)
-	                am.GetComponent<RectTransform>().anchoredPosition =
-	                    AmmoList.Last().GetComponent<RectTransform>().anchoredPosition + new Vector2(0, -5);
+	            {
+	                xOffset = AmmoList.Last().GetComponent<RectTransform>().anchoredPosition.x;
+                    yOffset = AmmoList.Last().GetComponent<RectTransform>().anchoredPosition.y-5;
+                    am.GetComponent<RectTransform>().anchoredPosition =
+	                    new Vector2(xOffset,yOffset);
+	                Rect screenRect = new Rect(0, 0, Screen.width, Screen.height);
+
+	                Vector3[] objectCorners = new Vector3[4];
+	                am.GetComponent<RectTransform>().GetWorldCorners(objectCorners);
+	                bool isObjectOverflowing = false;
+
+	                foreach (Vector3 corner in objectCorners)
+	                {
+	                    if (!screenRect.Contains(corner))
+	                    {
+	                        isObjectOverflowing = true;
+	                        break;
+	                    }
+                    }
+	                if (isObjectOverflowing)
+	                {
+	                    if ((int)xOffset - (int)AmmoList.First().GetComponent<RectTransform>().anchoredPosition.x%6==0 )
+	                        yOffset = AmmoList.First().GetComponent<RectTransform>().anchoredPosition.y - 2.5f;
+	                    else
+	                    {
+	                        yOffset = AmmoList.First().GetComponent<RectTransform>().anchoredPosition.y;
+                        }
+	                    xOffset -= 3;
+	                    am.GetComponent<RectTransform>().anchoredPosition =
+	                        new Vector2(xOffset, yOffset);
+                    }
+	            }
 	            else
 	            {
 	                am.GetComponent<RectTransform>().anchoredPosition =
 	                    AmmoSprite.GetComponent<RectTransform>().anchoredPosition;
 	            }
-                AmmoList.Add(am);
+	            AmmoList.Add(am);
 	        }
 	    }
 	}
@@ -243,7 +275,7 @@ public class Player : MonoBehaviour {
 	public void UpdateDamageModifier() {
 		if (!overrideDamageModifier) {
             //Debug.Log(Mathf.Clamp((-Mathf.Log10(ammo) / 2 + 1) * 10, 0.1f, 100f));
-			float modifier = Mathf.Clamp ((-Mathf.Log10(ammo) / 2 + 1) * 10, 0.1f, 100f);
+			float modifier = Mathf.Clamp ((-Mathf.Log10(ammo) / 2 + 1) * 10, 0.1f, 20f);
 			SetProjectileDamageModifier (modifier);
 		}
 	}
