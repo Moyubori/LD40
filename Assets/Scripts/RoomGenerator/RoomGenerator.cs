@@ -37,7 +37,7 @@ public class RoomGenerator : MonoBehaviour
         GenerateMap();
 	    surfaces[0].BuildNavMesh();
 	   
-        _player.transform.position = new Vector3(12f*_rooms[0].X,0.5f,12f*_rooms[0].Y);
+        _player.transform.position = new Vector3(12f*_rooms[0].X,1f,12f*_rooms[0].Y);
         _player.GetComponent<Player>().IncreaseAmmo(100);
     }
 	
