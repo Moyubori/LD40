@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -45,6 +46,12 @@ public class GameManager : MonoBehaviour {
 
 	private void Start() {
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+	}
+
+	private void Update () {
+		if (Input.GetKey ("r")) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
 	}
 
 	public static ObjectPool GetObjectPool(string poolName) {
